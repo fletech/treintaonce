@@ -6,6 +6,7 @@ const Items = () => {
   const [works, setWorks] = useState([]);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]);
+
   useReactQuery("works", () => fetchGoogleSheetData(worksURL), setWorks);
   useReactQuery(
     "categories",
@@ -13,24 +14,6 @@ const Items = () => {
     setCategories
   );
   useReactQuery("types", () => fetchGoogleSheetData(typesURL), setTypes);
-
-  //   useEffect(() => {
-  //     (async () => {
-  //       const WORKS_RESPONSE = await fetchGoogleSheetData(worksURL);
-  //       setWorks(WORKS_RESPONSE);
-  //       const CATEGORIES_RESPONSE = await fetchGoogleSheetData(categoriesURL);
-  //       setCategories(CATEGORIES_RESPONSE);
-  //       const TYPES_RESPONSE = await fetchGoogleSheetData(typesURL);
-  //       setTypes(TYPES_RESPONSE);
-  //     })();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     console.log(categories);
-  //   }, [categories]);
-  //   useEffect(() => {
-  //     console.log(types);
-  //   }, [types]);
 
   return (
     <>
