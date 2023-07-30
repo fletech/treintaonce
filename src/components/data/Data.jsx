@@ -1,22 +1,23 @@
 import { useContext } from "react";
-import { fetchGoogleSheetData } from "../../lib/api";
-import { useReactQuery } from "../../lib/useReactQuery";
-import { worksURL, categoriesURL, typesURL } from "../../lib/constants";
-import Context from "../context";
+import { fetchGoogleSheetData } from "../../../lib/api";
+import { useReactQuery } from "../../../lib/useReactQuery";
+import { worksURL, categoriesURL, typesURL } from "../../../lib/constants";
+import Context from "../../context";
 
 const Data = () => {
   const states = useContext(Context);
 
   const { setWorks, setCategories, setTypes } = states;
 
-  useReactQuery("works", () => fetchGoogleSheetData(worksURL), setWorks);
-  useReactQuery(
-    "categories",
-    () => fetchGoogleSheetData(categoriesURL),
-    setCategories
-  );
-  useReactQuery("types", () => fetchGoogleSheetData(typesURL), setTypes);
-  return null;
+  useReactQuery("works", fetchGoogleSheetData, setWorks);
+
+  // useReactQuery(
+  //   "categories",
+  //   () => fetchGoogleSheetData(categoriesURL),
+  //   setCategories
+  // );
+  // useReactQuery("types", () => fetchGoogleSheetData(typesURL), setTypes);
+  return <p>Hello</p>;
   // return (
   //   <>
   //     <div>

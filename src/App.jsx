@@ -1,8 +1,9 @@
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import Works from "./components/Works";
-import Categories from "./components/Categories";
-import Data from "./components/Data";
+import Layout from "./layout/index";
+import Navbar from "./components/Navbar/NavBar";
+import HeroSection from "./components/Hero/Hero";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,12 +12,18 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Data />
-      <Works />
-      <Categories />
+      <Navbar />
+      <Layout>
+        <HeroSection />
+      </Layout>
+      <footer className="bg-gray-200 py-4">
+        {/* Contenido del pie de página */}
+      </footer>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
