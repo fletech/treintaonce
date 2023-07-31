@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className=" py-4 px-8 w-full flex items-center justify-between">
+      <nav className=" py-4 px-8 w-full flex items-center justify-between backdrop-blur-xl fixed">
         <div className="flex items-start">
           {/*<img src="/path/to/your/logo.png" alt="Logo" className="h-8 w-8 mr-4" /> */}
           <span className="font-bold text-lg">treintaONce</span>
