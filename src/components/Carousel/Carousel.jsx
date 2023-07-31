@@ -66,7 +66,7 @@ const Carousel = ({ works }) => {
             style={{
               backgroundImage: `url(${works[currentIndex].work_image_cover})`,
             }}
-            className="w-full rounded-2xl bg-center bg-contain bg-no-repeat duration-300 h-auto "
+            className="w-full rounded-2xl bg-center bg-contain bg-no-repeat duration-300 h-auto z-0 "
             key={works[currentIndex].work_id}
             // className={`carousel-slide  w-full h-64 p-4 duration-500 `}
           >

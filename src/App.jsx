@@ -20,7 +20,7 @@ function App() {
       <Layout>
         <HeroSection />
       </Layout>
-      <footer className="bg-gray-200 py-4">
+      <footer className="bg-gray-200 py-8">
         {/* Contenido del pie de página */}
       </footer>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -12,7 +12,7 @@ const HeroSection = () => {
     onSuccess: setWorks,
   });
   return (
-    <div className="mt-20 grid grid-cols-2 md:grid-cols-2 h-[70vh] md:h-[88vh] gap-3">
+    <div className="my-20 grid grid-cols-2 md:grid-cols-2 h-[70vh] md:h-[88vh] gap-3">
       {/* Caja de la izquierda */}
       <div className="border border-gray-200 bg-zinc-900 h-[70vh] md:h-[88vh] p-4 rounded shadow grid l:hidden">
         {works && <Carousel works={works} />}
