@@ -44,9 +44,9 @@ const Carousel = ({ works }) => {
     setCurrentIndex(slideIndex);
   };
 
-  useEffect(() => {
-    console.log(lastIndex);
-  }, [currentIndex, lastIndex]);
+  // useEffect(() => {
+  //   console.log(lastIndex);
+  // }, [currentIndex, lastIndex]);
 
   // useEffect(() => {
   //   const slideInterval = setInterval(() => {
