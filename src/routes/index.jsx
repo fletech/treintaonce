@@ -32,16 +32,39 @@ export const routes = [
         path: "/",
       },
       {
-        name: "details",
-        title: "Detalles",
+        name: "nuestros-trabajos",
+        title: "Ver más detalles",
         hasSiderLink: true,
         routes: [
           {
             name: "details-works",
-            title: "Detalles de trabajos realizados",
+            title: "Nuestros trabajos realizados",
             hasSiderLink: true,
             component: Details,
-            path: "/details",
+            //path: "/nuestros-trabajos",
+            routes: [
+              {
+                name: "categories",
+                title: "Nuestros trabajos realizados",
+                hasSiderLink: true,
+                component: Details,
+                path: "nuestros-trabajos/categoria/:id",
+              },
+              {
+                name: "our-works",
+                title: "Nuestros trabajos realizados",
+                hasSiderLink: true,
+                component: Details,
+                path: "/nuestros-trabajos/producto/:id",
+              },
+            ],
+            // {
+            //   name: "details-works",
+            //   title: "Nuestros trabajos realizados",
+            //   hasSiderLink: true,
+            //   component: Details,
+            //   path: "/nuestros-trabajos/:id",
+            //},
           },
         ],
       },
