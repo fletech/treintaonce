@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   fetchGoogleSheetCategories,
   fetchGoogleSheetData,
   fetchGoogleSheetRelationWorkCategory,
 } from "../../lib/api";
+// import Marquee from "react-fast-marquee";
 
 const Details = () => {
   const params = useParams();
@@ -17,10 +18,7 @@ const Details = () => {
   const [relationWorkCategory, setRelationWorkCategory] = useState([]);
   const [currentCategory, setCurrentCategory] = useState([]);
   const [filteredWorks, setFilteredWorks] = useState([]);
-  //TODO: desde el navbar al hacer click en trabajos debe llevar a la ruta /nuestros-trabajos/producto/todos
-  //TODO: y poder mostrar el primer producto de la primera categoria, o un marquee en el top de la seccion que deslice al
-  //TODO: hacer hover para seleccionar un producto
-  //TODO: ver como hacer con el layout de mobile
+  const [allSelected, setAllSelected] = useState(false);
 
   useQuery(["works"], fetchGoogleSheetData, {
     staleTime: 0,
@@ -46,16 +44,43 @@ const Details = () => {
       works.length > 0 &&
       relationWorkCategory.length > 0
     ) {
+      setAllSelected(false);
       if (location_path == "producto") {
-        const singleWork = works.filter((work) => work.work_ID == param_id);
-        setFilteredWorks(singleWork[0]);
-        const categories_associated = relationWorkCategory.filter(
-          (relation) => relation.work_ID == singleWork[0].work_ID
-        );
-        const categories_IDS = categories_associated.map(
-          (relation) => relation.category_ID
-        );
-        setCurrentCategory(categories_IDS);
+        if (param_id == "todos") {
+          setAllSelected(true);
+          setCurrentCategory([]);
+          setFilteredWorks(works);
+        } else {
+          const singleWork = works.filter((work) => work.work_ID == param_id);
+          setFilteredWorks(singleWork);
+          const categories_associated = relationWorkCategory.filter(
+            (relation) => relation.work_ID == singleWork[0].work_ID
+          );
+          const categories_IDS = categories_associated.map(
+            (relation) => relation.category_ID
+          );
+          setCurrentCategory(categories_IDS);
+        }
+      }
+
+      if (location_path == "categoria") {
+        if (param_id == "todos") {
+          setAllSelected(true);
+          setCurrentCategory([]);
+          setFilteredWorks(works);
+        } else {
+          setCurrentCategory([param_id]);
+
+          const works_associated = relationWorkCategory.filter(
+            (relation) => relation.category_ID == param_id
+          );
+
+          const filtered = works_associated.flatMap((relation, index) => {
+            return works.filter((work) => work.work_ID == relation.work_ID);
+          });
+
+          setFilteredWorks(filtered);
+        }
       }
 
       //   //gpt
@@ -89,40 +114,76 @@ const Details = () => {
 
   return (
     (works || categories || relationWorkCategory) && (
-      <section className="mt-32 w-full">
+      <section className="mt-32 w-full ">
         <div>
           Path: {location_path} / ID: {param_id}
         </div>
         <div className="flex w-full mt-4  border-t-2 border-gray-200 pt-4">
-          <div className="grid w-auto mr-8 border-r-2 pr-8 border-gray-200">
+          <div className="grid w-auto mr-8 border-r-2 pr-8 border-gray-200 min-h-[50vh] place-content-start">
             <span className="bold border-b-2 border-gray-100 pb-2">
-              Categories
+              Categorías
             </span>
-
-            {categories.map((category) => (
+            <Link to={`/nuestros-trabajos/categoria/todos`}>
               <p
-                key={category.category_ID}
                 className={`capitalize text-blackish/70  mt-1 ${
-                  currentCategory.includes(category.category_ID)
-                    ? "text-blue-500 font-bold"
-                    : ""
+                  allSelected ? "text-blue-500 font-bold" : ""
                 }`}
               >
-                {category.category_name}
+                {categories.length != 0 ? "Todos" : "Cargando..."}
               </p>
+            </Link>
+            {categories.map((category) => (
+              <div key={category.category_ID}>
+                <p
+                  className={`capitalize text-blackish/70  mt-1 ${
+                    currentCategory.includes(category.category_ID)
+                      ? "text-blue-500 font-bold"
+                      : ""
+                  }`}
+                >
+                  <Link
+                    to={`/nuestros-trabajos/categoria/${category.category_ID}&${category.category_name}`}
+                  >
+                    {category.category_name}
+                  </Link>
+                </p>
+                {/* <div className="ml-6   border-l-[1px] border-gray-300">
+                  {}
+                  <div className="flex">
+                    <span className="text-gray-300 relative -left-0.5">-</span>
+                    <p className="text-blackish/50 ">Producto</p>
+                  </div>
+                  <div className="flex">
+                    <span className="text-gray-300 relative -left-0.5">-</span>
+                    <p className="text-blackish/50 ">Producto</p>
+                  </div>
+                </div> */}
+              </div>
             ))}
           </div>
-          <div className="w-auto grid">
-            <p>{filteredWorks.work_title}</p>
-            <p>{filteredWorks.work_customer}</p>
-            <p>{filteredWorks.work_description}</p>
-            <div
-              className="w-[300px] h-[300px] bg-center bg-contain bg-no-repeat"
-              style={{
-                backgroundImage: `url(${filteredWorks.work_image_cover})`,
-              }}
-            />
+          {/* <Marquee play={false}> */}
+          <div className="w-full overflow-x-scroll flex py-8">
+            {filteredWorks.map((work) => (
+              <div
+                key={work.work_ID}
+                className="w-auto grid place-items-center border border-gray-100 mx-4 p-4 rounded-xl max-h-[50vh]"
+              >
+                <div className="grid w-full">
+                  <p>{work.work_title}</p>
+                  <p>{work.work_customer}</p>
+                  <p>{work.work_description}</p>
+                </div>
+                <div
+                  className="w-[300px] min-h-[20] h-[30vh] bg-center bg-contain bg-no-repeat"
+                  style={{
+                    backgroundImage: `url(${work.work_image_cover})`,
+                  }}
+                />
+              </div>
+            ))}
           </div>
+
+          {/* </Marquee> */}
         </div>
       </section>
     )
