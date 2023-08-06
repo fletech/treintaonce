@@ -4,7 +4,7 @@ import { Subtitle } from "../Commons/Commons";
 import WorkBox from "./WorkBox";
 
 const WorksSection = ({ works }) => {
-  const [first_right, second_right] = [3, 6];
+  const [first_right, second_right] = [0, 4];
   const [worksFiltered, setWorksFiltered] = useState();
 
   useEffect(() => {

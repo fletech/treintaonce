@@ -13,19 +13,19 @@ const Homepage = () => {
   const [categories, setCategories] = useState();
 
   useQuery(["works"], fetchGoogleSheetData, {
-    staleTime: 3000,
+    staleTime: 0,
     onSuccess: setWorks,
   });
 
   useQuery(["categories"], fetchGoogleSheetCategories, {
-    staleTime: 3000,
+    staleTime: 0,
     onSuccess: setCategories,
   });
 
   return (
     <>
-      <WorksSection works={works} />
-      <DescriptionSection categories={categories} />
+      {works && <WorksSection works={works} />}
+      {categories && <DescriptionSection categories={categories} />}
     </>
   );
 };
