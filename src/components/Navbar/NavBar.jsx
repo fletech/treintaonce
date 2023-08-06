@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { content_layout } from "../../../lib/constants";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -10,17 +11,23 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="h-[8vh] md:px-20 px-8 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
+      <nav className="h-[8vh] px-8 md:px-32 lg:px-40 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
         <div className="flex items-start">
           {/*<img src="/path/to/your/logo.png" alt="Logo" className="h-8 w-8 mr-4" /> */}
 
-          <span className="font-bold text-lg">treintaONce</span>
+          <Link to={"/"}>
+            <span className="font-bold text-lg">treintaONce</span>
+          </Link>
         </div>
         <div className="hidden md:flex items-center">
           {content_layout.navbar.items.map((element, i) => (
-            <a key={i} href="#" className=" mx-2 font-semibold text-blackish">
-              {element}
-            </a>
+            <Link
+              key={i}
+              to={element.url}
+              className=" mx-2 font-semibold text-blackish"
+            >
+              {element.menu}
+            </Link>
           ))}
 
           {/* Agrega más enlaces según tus necesidades */}
