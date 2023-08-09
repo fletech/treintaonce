@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { content_layout } from "../../../lib/constants";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [routePath, setRoutePath] = useState("");
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-
+  const location = useLocation();
+  const location_path = location.pathname.split("/")[1];
+  console.log(location_path);
+  // useEffect(() => {
+  //   if (location.path[1] === "/") {
+  //     return location;
+  //   }
+  // }, []);
   return (
     <header>
       <nav className="h-[8vh] px-8 md:px-32 lg:px-40 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
@@ -19,12 +27,16 @@ const Navbar = () => {
             <span className="font-bold text-lg">treintaONce</span>
           </Link>
         </div>
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center ">
           {content_layout.navbar.items.map((element, i) => (
             <Link
               key={i}
               to={element.url}
-              className=" mx-2 font-semibold text-blackish"
+              className={` mx-2 font-semibold text-blackish border-b-2 ${
+                location_path == element.url.split("/")[1]
+                  ? " border-primary"
+                  : "border-primary/0"
+              }`}
             >
               {element.menu}
             </Link>

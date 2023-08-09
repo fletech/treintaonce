@@ -75,7 +75,7 @@ const Carousel = ({ works }) => {
               key={works[currentIndex].work_ID}
               // className={`carousel-slide  w-full h-64 p-4 duration-500 `}
             >
-              <div className="bg-white inline-block p-2">
+              <div className="bg-bgHighlight inline-block p-2 font-light">
                 <h3>{works[currentIndex].work_title}</h3>
               </div>
             </div>

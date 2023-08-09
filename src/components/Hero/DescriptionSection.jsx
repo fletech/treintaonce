@@ -1,12 +1,26 @@
+import { content_layout } from "../../../lib/constants";
 import { Subtitle } from "../Commons/Commons";
 
 import CategoryCard from "./CategoryCard";
 
+const finderSpans = (text, spans) => {
+  // const array = spans.map((span) => text.find(span));
+  return text;
+};
+
 const DescriptionSection = ({ categories }) => {
+  const content = finderSpans(content_layout.heroDescription.content);
+
   return (
     <section className="mb-10 mt-16 ">
-      <Subtitle text={"En qué nos especializamos"} />
-      {categories && (
+      <Subtitle text={"En qué nos especializamos?"} />
+      <p
+        className="tracking-wider"
+        dangerouslySetInnerHTML={{
+          __html: content,
+        }}
+      />
+      {/* {categories && (
         <div className="flex flex-grow w-full">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2 mb-8 w-full">
             {categories.map((category) => (
@@ -14,7 +28,7 @@ const DescriptionSection = ({ categories }) => {
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </section>
   );
 };

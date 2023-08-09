@@ -7,6 +7,7 @@ import {
 
 import DescriptionSection from "../components/Hero/DescriptionSection";
 import WorksSection from "../components/Hero/Hero";
+import Banner from "../components/Banner/Banner";
 
 const Homepage = () => {
   const [works, setWorks] = useState();
@@ -25,6 +26,7 @@ const Homepage = () => {
   return (
     <>
       {works && <WorksSection works={works} />}
+      {works && <Banner />}
       {categories && <DescriptionSection categories={categories} />}
     </>
   );

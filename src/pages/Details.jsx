@@ -126,7 +126,7 @@ const Details = () => {
             <Link to={`/nuestros-trabajos/categoria/todos`}>
               <p
                 className={`capitalize text-blackish/70  mt-1 ${
-                  allSelected ? "text-blue-500 font-bold" : ""
+                  allSelected ? "text-primary font-bold" : ""
                 }`}
               >
                 {categories.length != 0 ? "Todos" : "Cargando..."}
@@ -137,7 +137,7 @@ const Details = () => {
                 <p
                   className={`capitalize text-blackish/70  mt-1 ${
                     currentCategory.includes(category.category_ID)
-                      ? "text-blue-500 font-bold"
+                      ? "text-primary font-bold"
                       : ""
                   }`}
                 >
@@ -166,7 +166,7 @@ const Details = () => {
             {filteredWorks.map((work) => (
               <div
                 key={work.work_ID}
-                className="w-auto grid place-items-center border border-gray-100 mx-4 p-4 rounded-xl max-h-[50vh]"
+                className="w-auto grid place-items-start border border-gray-100 mx-4 p-4 rounded-xl max-h-[50vh]"
               >
                 <div className="grid w-full">
                   <p>{work.work_title}</p>
@@ -174,7 +174,7 @@ const Details = () => {
                   <p>{work.work_description}</p>
                 </div>
                 <div
-                  className="w-[300px] min-h-[20] h-[30vh] bg-center bg-contain bg-no-repeat"
+                  className="w-[300px] min-h-[30vh] bg-center bg-contain bg-no-repeat"
                   style={{
                     backgroundImage: `url(${work.work_image_cover})`,
                   }}
