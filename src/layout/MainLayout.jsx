@@ -7,7 +7,7 @@ const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex flex-col px-8 md:px-32 lg:px-40">
+      <div className="min-h-screen flex flex-col px-8 md:px-32 lg:px-40 bg-bgMain">
         {/* Aquí puedes agregar una barra de navegación, encabezado o cualquier otro elemento que desees mostrar en todas las páginas */}
 
         {/* Contenido principal */}

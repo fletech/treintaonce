@@ -12,8 +12,8 @@ const WorkBox = ({ work }) => {
           key={work.work_id}
           // className={`carousel-slide  w-full h-64 p-4 duration-500 `}
         >
-          <div className="bg-white inline-block p-2">
-            <h3>{work.work_title}</h3>
+          <div className="bg-bgHighlight inline-block p-2 font-light">
+            <h3 className="font-light">{work.work_title}</h3>
           </div>
         </div>
       </div>
