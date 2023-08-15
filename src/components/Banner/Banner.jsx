@@ -1,4 +1,5 @@
 import { BiSolidRightArrow } from "react-icons/bi";
+import { BsBoxSeam } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { GoPaperclip } from "react-icons/go";
 import { MdDoneAll, MdOutlineLocalShipping } from "react-icons/md";
@@ -9,51 +10,42 @@ const Banner = () => {
   const getIcon = (key, { ...styles }) => {
     const icons = {
       0: <HiOutlineLightBulb key={key} className={styles.tw} />,
-      2: <GoPaperclip key={key} className={styles.tw} />,
-      4: <MdDoneAll key={key} className={styles.tw} />,
-      6: <MdOutlineLocalShipping key={key} className={styles.tw} />,
+      1: <GoPaperclip key={key} className={styles.tw} />,
+      2: <MdDoneAll key={key} className={styles.tw} />,
+      3: <BsBoxSeam key={key} className={styles.tw} />,
+      4: <MdOutlineLocalShipping key={key} className={styles.tw} />,
     };
     return icons[`${key}`];
   };
   return (
     <section className="mt-16">
       <Subtitle text="Cómo trabajamos?" />
-      <div className="grid grid-cols-11 w-full mt-8 md:min-h-[20vh] min-h-[30vh] ">
-        {content_layout.banner.cards.map((card, i) =>
-          i % 2 == 0 ? (
+      <div className="flex w-full mt-8  items-stretch ">
+        {content_layout.banner.cards.map((card, i) => (
+          <>
             <div
               key={i}
-              className="relative card w-full col-span-2 flex justify-center items-center bg-bgHighlight  text-blackish font-light tracking-wider p-4 rounded-lg shadow-sm"
+              className="relative card w-full flex flex-col justify-start items-center bg-bgHighlight  text-blackish font-light tracking-wider p-4 rounded-lg shadow-sm h-auto"
             >
-              <div className="absolute top-4 left-4">
+              <div className="">
                 {getIcon(i, { tw: "text-3xl text-primary" })}
               </div>
-              <p className="w-full text-center text-xl">{card}</p>
+              <div className="w-full h-full flex justify-center items-center">
+                <p className="text-lg">{card.text}</p>
+              </div>
             </div>
-          ) : (
-            <div
-              key={i}
-              className="flex w-full h-full items-center justify-center"
-            >
-              <BiSolidRightArrow className="text-primary/20" />
-              <BiSolidRightArrow className="text-primary/30" />
-              <BiSolidRightArrow className="text-primary/40" />
-            </div>
-          )
-        )}
-        {/* <div className="card w-full col-span-2 bg-red-400"></div>
-      <div className="card w-full bg-red-200 place-items-center">
-        <div className="flex w-auto h-full items-center justify-center">
-          <BiSolidRightArrow />
-          <BiSolidRightArrow />
-          <BiSolidRightArrow />
-        </div>
-      </div>
-      <div className="card w-full col-span-2 bg-red-400"></div>
-      <div className="card w-full bg-red-200"></div>
-      <div className="card w-full col-span-2 bg-red-400"></div>
-      <div className="card w-full bg-red-200"></div>
-      <div className="card w-full col-span-2 bg-red-400"></div> */}
+            {content_layout.banner.cards.length != i + 1 && (
+              <div
+                key={i}
+                className="flex w-1/2 h-auto items-center justify-center"
+              >
+                <BiSolidRightArrow className="text-primary/20" />
+                <BiSolidRightArrow className="text-primary/30" />
+                <BiSolidRightArrow className="text-primary/40" />
+              </div>
+            )}
+          </>
+        ))}
       </div>
     </section>
   );
