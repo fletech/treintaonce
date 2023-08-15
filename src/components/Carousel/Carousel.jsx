@@ -1,41 +1,19 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchGoogleSheetData } from "../../../lib/api";
+import { useState } from "react";
 
-import {
-  BsChevronCompactLeft,
-  BsChevronCompactRight,
-  BsChevronLeft,
-  BsChevronRight,
-} from "react-icons/bs";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
 const Carousel = ({ works }) => {
-  // const states = useContext(Context);
-
-  // const { works } = states;
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(0);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [direction, setDirection] = useState("");
 
-  const updateSlide = (index) => {
-    return setCurrentSlide(works[index]);
-  };
-
-  const prevSlide = (current) => {
-    setDirection("right");
-    setLastIndex(current);
+  const prevSlide = () => {
     setCurrentIndex((prevIndex) => {
       return prevIndex == 0 ? works.length - 1 : prevIndex - 1;
     });
   };
 
-  const nextSlide = (current) => {
-    setDirection("left");
-    setLastIndex(current);
+  const nextSlide = () => {
     setCurrentIndex((prevIndex) => {
       return prevIndex === works.length - 1 ? 0 : prevIndex + 1;
     });
@@ -44,20 +22,6 @@ const Carousel = ({ works }) => {
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
-
-  // useEffect(() => {
-  //   console.log(lastIndex);
-  // }, [currentIndex, lastIndex]);
-
-  // useEffect(() => {
-  //   const slideInterval = setInterval(() => {
-  //     updateSlide(currentIndex);
-  //   }, 200); // Cambia el slide automáticamente cada 5 segundos
-
-  //   return () => {
-  //     clearInterval(slideInterval);
-  //   };
-  // }, []);
 
   return (
     works && (
@@ -73,7 +37,6 @@ const Carousel = ({ works }) => {
               }}
               className="w-full rounded-2xl bg-center bg-contain bg-no-repeat duration-300 z-200 "
               key={works[currentIndex].work_ID}
-              // className={`carousel-slide  w-full h-64 p-4 duration-500 `}
             >
               <div className="bg-bgHighlight inline-block p-2 font-light">
                 <h3>{works[currentIndex].work_title}</h3>
@@ -86,15 +49,12 @@ const Carousel = ({ works }) => {
           onClick={() => prevSlide(currentIndex)}
         >
           <BsChevronLeft />
-
-          {/* <BsChevronCompactLeft /> */}
         </button>
         <button
           className="next-btn absolute top-1/2 right-5 transform -translate-y-1/2 text-3xl rounded-full p-2 bg-primary/40 text-white cursor-pointer"
           onClick={() => nextSlide(currentIndex)}
         >
           <BsChevronRight />
-          {/* <BsChevronCompactRight /> */}
         </button>
         <div className="absolute flex -bottom-[7vh] justify-center py-2 w-full">
           {works.map((slide, slideIndex) => (
