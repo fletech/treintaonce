@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isMobile } from "react-device-detect";
 
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
@@ -28,9 +29,9 @@ const Carousel = ({ works }) => {
       <div className="relative p-0">
         <Link
           to={`/nuestros-trabajos/producto/${works[currentIndex].work_ID}&${works[currentIndex].work_title}`}
-          className="bg-transparent"
+          className="bg-transparent carousel"
         >
-          <div className="carousel-wrapper w-full flex  h-full ">
+          <div className={` w-full flex  h-full`}>
             <div
               style={{
                 backgroundImage: `url(${works[currentIndex].work_image_cover})`,

@@ -44,7 +44,7 @@ button {
 input,
 textarea,
 span {
-  font-weight: 700 !important;
+  font-weight: 700;
 }
 
 p.family-custom,
@@ -76,4 +76,37 @@ input.secondary:-webkit-autofill {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: rgb(75, 159, 175);
+}
+
+.carousel {
+  scroll-snap-type: x mandatory;
+}
+
+.carousel .item {
+  scroll-snap-align: start;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #faf9f6;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb ::after {
+  content: "culiau";
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

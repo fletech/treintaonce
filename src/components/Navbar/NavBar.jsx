@@ -19,12 +19,14 @@ const Navbar = () => {
   // }, []);
   return (
     <header>
-      <nav className="h-[8vh] px-8 md:px-32 lg:px-40 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
+      <nav className="h-[8vh] px-8 md:px-24 lg:px-60 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
         <div className="flex items-start">
           {/*<img src="/path/to/your/logo.png" alt="Logo" className="h-8 w-8 mr-4" /> */}
 
           <Link to={"/"}>
-            <span className="font-bold text-lg">treintaONce</span>
+            <span className="font-bold text-lg">
+              treinta<span className="text-primary">ON</span>ce
+            </span>
           </Link>
         </div>
         <div className="hidden md:flex items-center ">
