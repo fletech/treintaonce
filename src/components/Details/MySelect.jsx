@@ -1,10 +1,10 @@
 import React from "react";
 import * as Select from "@radix-ui/react-select";
 
-const MySelect = () => {
+const MySelect = ({ categories, currentCategory }) => {
   return (
-    <Select.Root>
-      <Select.Trigger>
+    <Select.Root defaultValue={currentCategory.category_ID}>
+      <Select.Trigger className="bg-secondary">
         <Select.Value />
         <Select.Icon />
       </Select.Trigger>
@@ -12,7 +12,7 @@ const MySelect = () => {
       <Select.Portal>
         <Select.Content>
           <Select.ScrollUpButton />
-          <Select.Viewport>
+          <Select.Viewport className="bg-primary">
             <Select.Item>
               <Select.ItemText />
               <Select.ItemIndicator />
@@ -20,10 +20,17 @@ const MySelect = () => {
 
             <Select.Group>
               <Select.Label />
-              <Select.Item>
-                <Select.ItemText />
-                <Select.ItemIndicator />
-              </Select.Item>
+              {categories.map((_) => (
+                <Select.Item
+                  key={_.category_ID}
+                  value={_.category_ID}
+                  className="capitalize"
+                >
+                  {_.category_name}
+                  {/* <Select.ItemText />
+                  <Select.ItemIndicator /> */}
+                </Select.Item>
+              ))}
             </Select.Group>
 
             <Select.Separator />

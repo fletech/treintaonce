@@ -94,7 +94,7 @@ const Details = () => {
         <div
           className={`flex ${
             isMobile ? "flex-col" : ""
-          }  mt-4  border-y-2 items-stretch border-gray-200 py-4`}
+          }  mt-4 border-y-2  border-gray-200 py-4`}
         >
           {!isMobile && (
             <Aside
@@ -111,7 +111,7 @@ const Details = () => {
             />
           )}
 
-          <ProductGrid filteredWorks={filteredWorks} />
+          <ProductGrid filteredWorks={filteredWorks} customers={customers} />
         </div>
       </main>
     )
