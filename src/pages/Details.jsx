@@ -89,7 +89,7 @@ const Details = () => {
     (works || categories || relationWorkCategory || customers) && (
       <main className="mt-32 w-full ">
         <Subtitle text={"nuestra vidriera virtual"} />
-        <div className="flex w-full mt-4  border-t-2 border-gray-200 pt-4">
+        <div className="flex w-full h-full mt-4  border-y-2  border-gray-200 py-4">
           <Aside
             allSelected={allSelected}
             categories={categories}
