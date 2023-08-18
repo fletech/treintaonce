@@ -10,7 +10,9 @@ import {
 
 import { Subtitle } from "../components/Commons/Commons";
 import Aside from "../components/Details/Aside";
+import SelectMobile from "../components/Details/SelectMobile";
 import ProductGrid from "../components/Details/ProductGrid";
+import { isMobile } from "react-device-detect";
 
 const Details = () => {
   const params = useParams();
@@ -87,14 +89,27 @@ const Details = () => {
 
   return (
     (works || categories || relationWorkCategory || customers) && (
-      <main className="mt-32 w-full ">
+      <main className={`mt-32 w-full h-auto`}>
         <Subtitle text={"nuestra vidriera virtual"} />
-        <div className="flex w-full h-full mt-4  border-y-2  border-gray-200 py-4">
-          <Aside
-            allSelected={allSelected}
-            categories={categories}
-            currentCategory={currentCategory}
-          />
+        <div
+          className={`flex ${
+            isMobile ? "flex-col" : ""
+          }  mt-4  border-y-2 items-stretch border-gray-200 py-4`}
+        >
+          {!isMobile && (
+            <Aside
+              allSelected={allSelected}
+              categories={categories}
+              currentCategory={currentCategory}
+            />
+          )}
+          {isMobile && (
+            <SelectMobile
+              allSelected={allSelected}
+              categories={categories}
+              currentCategory={currentCategory}
+            />
+          )}
 
           <ProductGrid filteredWorks={filteredWorks} />
         </div>
