@@ -51,7 +51,8 @@ const Details = () => {
     if (
       categories.length > 0 &&
       works.length > 0 &&
-      relationWorkCategory.length > 0
+      relationWorkCategory.length > 0 &&
+      customers.length > 0
     ) {
       setAllSelected(false);
       if (param_id == "todos") {
@@ -85,26 +86,32 @@ const Details = () => {
         // }
       }
     }
-  }, [categories, relationWorkCategory, works, param_id, location_path]);
+  }, [
+    categories,
+    customers,
+    relationWorkCategory,
+    works,
+    param_id,
+    location_path,
+  ]);
 
   return (
     (works || categories || relationWorkCategory || customers) && (
       <main className={`mt-32 w-full h-auto`}>
         <Subtitle text={"nuestra vidriera virtual"} />
         <div
-          className={`flex ${
-            isMobile ? "flex-col" : ""
+          className={`flex  ${
+            isMobile ? "flex-col min-h-[40vh]" : "min-h-[40vh]"
           }  mt-4 border-y-2  border-gray-200 py-4`}
         >
-          {!isMobile && (
-            <Aside
+          {isMobile ? (
+            <SelectMobile
               allSelected={allSelected}
               categories={categories}
               currentCategory={currentCategory}
             />
-          )}
-          {isMobile && (
-            <SelectMobile
+          ) : (
+            <Aside
               allSelected={allSelected}
               categories={categories}
               currentCategory={currentCategory}
