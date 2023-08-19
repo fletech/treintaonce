@@ -11,7 +11,7 @@ const MainLayout = () => {
         {/* Aquí puedes agregar una barra de navegación, encabezado o cualquier otro elemento que desees mostrar en todas las páginas */}
 
         {/* Contenido principal */}
-        <main className="flex-grow">
+        <main className="">
           <Outlet />
         </main>
 

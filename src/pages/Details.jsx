@@ -10,7 +10,9 @@ import {
 
 import { Subtitle } from "../components/Commons/Commons";
 import Aside from "../components/Details/Aside";
+import SelectMobile from "../components/Details/SelectMobile";
 import ProductGrid from "../components/Details/ProductGrid";
+import { isMobile } from "react-device-detect";
 
 const Details = () => {
   const params = useParams();
@@ -49,7 +51,8 @@ const Details = () => {
     if (
       categories.length > 0 &&
       works.length > 0 &&
-      relationWorkCategory.length > 0
+      relationWorkCategory.length > 0 &&
+      customers.length > 0
     ) {
       setAllSelected(false);
       if (param_id == "todos") {
@@ -83,20 +86,39 @@ const Details = () => {
         // }
       }
     }
-  }, [categories, relationWorkCategory, works, param_id, location_path]);
+  }, [
+    categories,
+    customers,
+    relationWorkCategory,
+    works,
+    param_id,
+    location_path,
+  ]);
 
   return (
     (works || categories || relationWorkCategory || customers) && (
-      <main className="mt-32 w-full ">
+      <main className={`mt-32 w-full h-auto`}>
         <Subtitle text={"nuestra vidriera virtual"} />
-        <div className="flex w-full mt-4  border-t-2 border-gray-200 pt-4">
-          <Aside
-            allSelected={allSelected}
-            categories={categories}
-            currentCategory={currentCategory}
-          />
+        <div
+          className={`flex  ${
+            isMobile ? "flex-col min-h-[40vh]" : "min-h-[40vh]"
+          }  mt-4 border-y-2  border-gray-200 py-4`}
+        >
+          {isMobile ? (
+            <SelectMobile
+              allSelected={allSelected}
+              categories={categories}
+              currentCategory={currentCategory}
+            />
+          ) : (
+            <Aside
+              allSelected={allSelected}
+              categories={categories}
+              currentCategory={currentCategory}
+            />
+          )}
 
-          <ProductGrid filteredWorks={filteredWorks} />
+          <ProductGrid filteredWorks={filteredWorks} customers={customers} />
         </div>
       </main>
     )
