@@ -97,18 +97,19 @@ const Details = () => {
 
   return (
     (works || categories || relationWorkCategory || customers) && (
-      <main className={`mt-32 w-full h-auto`}>
+      <main className={`mt-24 w-full h-auto md:min-h-[80vh]`}>
         <Subtitle text={"nuestra vidriera virtual"} />
         <div
           className={`flex  ${
-            isMobile ? "flex-col min-h-[40vh]" : "min-h-[40vh]"
-          }  mt-4 border-y-2  border-gray-200 py-4`}
+            isMobile ? "flex-col min-h-[40vh]" : "min-h-[60vh]"
+          }  mt-4 border-y-2 h-full border-gray-200 py-4`}
         >
           {isMobile ? (
             <SelectMobile
               allSelected={allSelected}
               categories={categories}
               currentCategory={currentCategory}
+              setCurrentCategory={setCurrentCategory}
             />
           ) : (
             <Aside

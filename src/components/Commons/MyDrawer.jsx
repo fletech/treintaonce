@@ -2,6 +2,7 @@ import { isMobile } from "react-device-detect";
 import { Drawer } from "vaul";
 
 export function MyDrawer({ children }) {
+  const description = children.work_description;
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-blackish/50" />
@@ -26,7 +27,7 @@ export function MyDrawer({ children }) {
               Unstyled drawer for React.
             </Drawer.Title>
 
-            {children}
+            {description}
           </div>
         </div>
         {/* <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">

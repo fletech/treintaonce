@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Aside = ({ allSelected, categories, currentCategory }) => {
   return (
     <div
-      className={`grid w-auto mr-4 border-r-2 pr-8 border-gray-200  h-auto  place-content-start `}
+      className={`flex flex-col w-full max-w-[16vw] mr-4 border-r-2 pr-4 border-gray-200  h-auto place-content-start `}
     >
       <span className="bold border-b-2 border-gray-100 pb-2">Categorías</span>
       {/* TODOS */}
@@ -26,9 +26,12 @@ const Aside = ({ allSelected, categories, currentCategory }) => {
       </Link>
       {/* CATEGORIAS */}
       {categories.map((category) => (
-        <div key={category.category_ID}>
+        <div
+          key={category.category_ID}
+          className="w-auto overflow-y-scroll h-auto  "
+        >
           <div
-            className={`capitalize text-blackish/70  mt-1 ${
+            className={`capitalize text-blackish/70  mt-1 flex flex-col items-stretch justify-start ${
               currentCategory.includes(category.category_ID)
                 ? "text-primary font-bold"
                 : ""

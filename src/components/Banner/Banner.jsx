@@ -48,8 +48,8 @@ const Banner = () => {
               </div>
             </div>
             {content_layout.banner.cards.length != i + 1 && (
-              <div className="flex w-1/2 h-auto items-center justify-center">
-                <BiSolidRightArrow className="text-primary/20" />
+              <div className="flex w-1/4 h-auto items-center justify-center">
+                {/* <BiSolidRightArrow className="text-primary/20" /> */}
                 <BiSolidRightArrow className="text-primary/30" />
                 <BiSolidRightArrow className="text-primary/40" />
               </div>

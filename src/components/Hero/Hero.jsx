@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Carousel from "../Carousel/Carousel";
 import { Subtitle } from "../Commons/Commons";
 import WorkBox from "./WorkBox";
 import { isMobile } from "react-device-detect";
+import { getRandomNumbers } from "../../utils/getRandomNumbers";
 
 const WorksSection = ({ works }) => {
-  const [first_right, second_right] = [6, 4];
+  const [first, second] = useMemo(() => getRandomNumbers(works), [works]);
+
   const [worksFiltered, setWorksFiltered] = useState();
 
   useEffect(() => {
     if (works) {
       const filtered = works.filter((work, i) => {
-        if (i != first_right && i != second_right) {
+        if (i != first && i != second) {
           return works[i];
         }
       });
+
       setWorksFiltered(filtered);
-      console.log(filtered);
     }
   }, [works]);
 
@@ -36,12 +38,12 @@ const WorksSection = ({ works }) => {
           <div className="grid grid-rows-2 gap-4 ">
             {/* Primera caja interna */}
             <div className="bg-primary border border-gray-200 rounded shadow">
-              {works && <WorkBox work={works[first_right]} />}
+              {works && <WorkBox work={works[first]} />}
             </div>
 
             {/* Segunda caja interna */}
             <div className="bg-secondary border border-gray-200 rounded shadow">
-              {works && <WorkBox work={works[second_right]} />}
+              {works && <WorkBox work={works[second]} />}
             </div>
           </div>
         )}

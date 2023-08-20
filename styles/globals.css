@@ -90,6 +90,7 @@ input.secondary:-webkit-autofill {
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
+  margin-top: 20px;
 }
 
 /* Track */
@@ -101,9 +102,6 @@ input.secondary:-webkit-autofill {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
-}
-::-webkit-scrollbar-thumb ::after {
-  content: "culiau";
 }
 
 /* Handle on hover */
