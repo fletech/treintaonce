@@ -2,6 +2,7 @@ import flattenDeep from "lodash/flattenDeep";
 
 import { Route, Routes as ReactRoutes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
+import { AnimatePresence } from "framer-motion";
 
 const generateFlattenRoutes = (routes) => {
   if (!routes) return [];
@@ -31,7 +32,12 @@ export const renderRoutes = (mainRoutes) => {
         </Route>
       );
     });
-    return <ReactRoutes>{layouts}</ReactRoutes>;
+
+    return (
+      <AnimatePresence mode="wait">
+        <ReactRoutes>{layouts}</ReactRoutes>
+      </AnimatePresence>
+    );
   };
   return Routes;
 };

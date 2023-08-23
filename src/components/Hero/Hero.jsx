@@ -5,7 +5,7 @@ import WorkBox from "./WorkBox";
 import { isMobile } from "react-device-detect";
 import { getRandomNumbers } from "../../utils/getRandomNumbers";
 
-const WorksSection = ({ works }) => {
+const Hero = ({ works }) => {
   const [first, second] = useMemo(() => getRandomNumbers(works), [works]);
 
   const [worksFiltered, setWorksFiltered] = useState();
@@ -27,7 +27,7 @@ const WorksSection = ({ works }) => {
       <Subtitle text={"nuestros trabajos realizados"} />
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 h-full`}>
         {/* Caja de la izquierda */}
-        <div className="border border-gray-200 bg-blackish/60 p-2 rounded shadow grid l:hidden">
+        <div className="border border-gray-200 bg-blackish/60 p-2 rounded-lg shadow grid l:hidden">
           {worksFiltered && (
             <Carousel works={isMobile ? works : worksFiltered} />
           )}
@@ -37,12 +37,12 @@ const WorksSection = ({ works }) => {
         {!isMobile && (
           <div className="grid grid-rows-2 gap-4 ">
             {/* Primera caja interna */}
-            <div className="bg-primary border border-gray-200 rounded shadow">
+            <div className="bg-primary border border-gray-200 rounded-lg shadow">
               {works && <WorkBox work={works[first]} />}
             </div>
 
             {/* Segunda caja interna */}
-            <div className="bg-secondary border border-gray-200 rounded shadow">
+            <div className="bg-secondary border border-gray-200 rounded-lg shadow">
               {works && <WorkBox work={works[second]} />}
             </div>
           </div>
@@ -52,4 +52,4 @@ const WorksSection = ({ works }) => {
   );
 };
 
-export default WorksSection;
+export default Hero;

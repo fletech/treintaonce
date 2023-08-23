@@ -1,14 +1,14 @@
 import { content_layout } from "../../../lib/constants";
 import { Subtitle } from "../Commons/Commons";
 
-import CategoryCard from "./CategoryCard";
+// import CategoryCard from "./CategoryCard";
 
-const finderSpans = (text, spans) => {
+const finderSpans = (text) => {
   // const array = spans.map((span) => text.find(span));
   return text;
 };
 
-const DescriptionSection = ({ categories }) => {
+const DescriptionSection = () => {
   const content = finderSpans(content_layout.heroDescription.content);
 
   return (

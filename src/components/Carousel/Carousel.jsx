@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isMobile } from "react-device-detect";
+// import { isMobile } from "react-device-detect";
 
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
@@ -36,10 +36,9 @@ const Carousel = ({ works }) => {
               style={{
                 backgroundImage: `url(${works[currentIndex].work_image_cover})`,
               }}
-              className="w-full rounded-2xl bg-center bg-contain bg-no-repeat duration-300 z-200 "
-              key={works[currentIndex].work_ID}
+              className="w-full bg-center bg-contain bg-no-repeat duration-300 z-200 "
             >
-              <div className="bg-bgHighlight inline-block p-2 font-light">
+              <div className="bg-bgHighlight inline-block p-2 font-light rounded-md">
                 <h3>{works[currentIndex].work_title}</h3>
               </div>
             </div>

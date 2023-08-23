@@ -4,6 +4,7 @@ import { MyDrawer } from "../Commons/MyDrawer";
 import { isMobile } from "react-device-detect";
 import { getRandomColors } from "../../utils/getRandomColors";
 import { useLocation } from "react-router-dom";
+import ProductDrawer from "./ProductDrawer";
 
 // import { isMobile } from "react-device-detect";
 
@@ -15,7 +16,7 @@ const ProductGrid = ({ filteredWorks, customers }) => {
 
   return (
     <section
-      className={` carousel w-auto h-[10%] py-2 flex justify-start overflow-x-scroll`}
+      className={`md:grid grid-cols-2 md:gap-4 carousel w-full h-auto py-2 flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll pr-2`}
     >
       {filteredWorks.map((work, i) => {
         const customer = customers.filter(
@@ -30,8 +31,8 @@ const ProductGrid = ({ filteredWorks, customers }) => {
         return (
           <div
             key={work.work_ID}
-            className={`item w-min h-auto flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
-              i == 0 ? "" : "ml-4"
+            className={`item w-auto h-auto flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
+              i == 0 ? "" : "ml-4 md:ml-0"
             }`}
           >
             <div className="flex w-full h-full justify-start flex-col">
@@ -39,7 +40,7 @@ const ProductGrid = ({ filteredWorks, customers }) => {
                 {work.work_title}
               </h2>
               <p className="font-light text-blackish/80 my-2">
-                {work.work_description}
+                {work.work_short_description}
               </p>
               <div className="flex items-center h-auto">
                 <div className="bg-blackish/30  h-auto mr-2 rounded-full p-[1px]">
@@ -53,16 +54,11 @@ const ProductGrid = ({ filteredWorks, customers }) => {
             <div
               className={`${
                 isMobile ? "w-[70vw]" : "min-w-[300px]"
-              }  grow h-full  my-4 mx-full flex flex-col justify-between items-center`}
-              style={
-                {
-                  // backgroundImage: `url(${work.work_image_cover})`,
-                }
-              }
+              }  grow h-full  my-4 mx-full flex flex-col justify-between items-center `}
             >
               <img
                 src={work.work_image_cover}
-                className="max-w-[200px] w-full"
+                className="max-w-[200px] w-full rounded-xl "
               />
             </div>
 
@@ -73,7 +69,9 @@ const ProductGrid = ({ filteredWorks, customers }) => {
                 </button>
               </Drawer.Trigger>
 
-              <MyDrawer>{work}</MyDrawer>
+              <MyDrawer title={work.work_title}>
+                <ProductDrawer work={work} />
+              </MyDrawer>
             </Drawer.Root>
           </div>
         );

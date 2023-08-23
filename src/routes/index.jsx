@@ -5,7 +5,7 @@ import AnonymousLayout from "../layout/AnonymousLayout";
 
 // Pages
 import Login from "../pages/Login";
-import HomePage from "../pages/HomePage";
+import Home from "../pages/Home";
 import Details from "../pages/Details";
 import { renderRoutes } from "./generate-routes";
 
@@ -28,7 +28,7 @@ export const routes = [
       {
         name: "home",
         title: "Home page",
-        component: HomePage,
+        component: Home,
         path: "/",
       },
       {

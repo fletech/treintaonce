@@ -5,7 +5,7 @@
 html,
 body {
   padding: 0;
-  margin: 0;
+
   scroll-behavior: smooth;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -47,10 +47,13 @@ span {
   font-weight: 700;
 }
 
-p.family-custom,
-h3.family-custom,
-h2.family-custom {
-  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+#family-custom {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+}
+
+#family-code {
+  font-family: monospace, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 
@@ -60,7 +63,7 @@ a {
 }
 
 li {
-  list-style: none;
+  list-style: inside;
 }
 
 * {

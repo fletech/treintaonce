@@ -1,12 +1,12 @@
 import { isMobile } from "react-device-detect";
 import { Drawer } from "vaul";
 
-export function MyDrawer({ children }) {
-  const description = children.work_description;
+export function MyDrawer({ children, ...props }) {
+  const title = props.title;
   return (
     <Drawer.Portal>
-      <Drawer.Overlay className="fixed inset-0 bg-blackish/50" />
-      <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-14 md:left-32 lg:left-40 md:right-32 lg:right-40">
+      <Drawer.Overlay className="fixed inset-0 bg-blackish/50 bg-primary/80" />
+      <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-14 md:left-40 lg:left-40 md:right-40 lg:right-40">
         <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1">
           {isMobile && (
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-primary/40 mb-8" />
@@ -23,11 +23,11 @@ export function MyDrawer({ children }) {
             </div>
           )}
           <div className="max-w-md mx-auto flex flex-col justify-center items-center">
-            <Drawer.Title className="font-bold text-2xl my-4 w-content text-blackish/80">
-              Unstyled drawer for React.
-            </Drawer.Title>
+            <h2 className=" font-bold text-2xl my-2 w-full text-blackish/80 uppercase ">
+              {title}
+            </h2>
 
-            {description}
+            {children}
           </div>
         </div>
         {/* <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
