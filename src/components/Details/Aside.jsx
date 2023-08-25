@@ -1,14 +1,14 @@
 import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const Aside = ({ allSelected, categories, currentCategory }) => {
+const Aside = ({ allSelected, categories, currentCategoriesIDs }) => {
   return (
     <div
       className={`flex flex-col w-full max-w-[16vw] mr-4 border-r-2 pr-4 border-gray-200  h-auto place-content-start `}
     >
       <span className="bold border-b-2 border-gray-100 pb-2">Categorías</span>
       {/* TODOS */}
-      <Link to={`/nuestros-trabajos/categoria/todos`}>
+      <Link to={`/nuestros-productos/categoria/todos`}>
         <div
           className={`flex items-start  mt-2 ${
             allSelected ? "text-primary font-bold" : "text-blackish/70 "
@@ -32,16 +32,16 @@ const Aside = ({ allSelected, categories, currentCategory }) => {
         >
           <div
             className={`capitalize text-blackish/70  mt-1 flex flex-col items-stretch justify-start ${
-              currentCategory.includes(category.category_ID)
+              currentCategoriesIDs.includes(category.category_ID)
                 ? "text-primary font-bold"
                 : ""
             }`}
           >
             <Link
-              to={`/nuestros-trabajos/categoria/${category.category_ID}&${category.category_name}`}
+              to={`/nuestros-productos/categoria/${category.category_ID}&${category.category_name}`}
             >
               <div className="flex items-start">
-                {currentCategory.includes(category.category_ID) ? (
+                {currentCategoriesIDs.includes(category.category_ID) ? (
                   <BiSolidRightArrow
                     size={8}
                     className="mr-2  top-2 relative"

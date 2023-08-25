@@ -28,7 +28,7 @@ const Carousel = ({ works }) => {
     works && (
       <div className="relative p-0">
         <Link
-          to={`/nuestros-trabajos/producto/${works[currentIndex].work_ID}&${works[currentIndex].work_title}`}
+          to={`/nuestros-productos/producto/${works[currentIndex].work_ID}&${works[currentIndex].work_title}`}
           className="bg-transparent carousel"
         >
           <div className={` w-full flex  h-full`}>

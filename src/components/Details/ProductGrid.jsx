@@ -1,45 +1,55 @@
+import { useEffect, useRef, useState } from "react";
 import { Drawer } from "vaul";
 import { MyDrawer } from "../Commons/MyDrawer";
-
 import { isMobile } from "react-device-detect";
-import { getRandomColors } from "../../utils/getRandomColors";
 import { Link, useLocation } from "react-router-dom";
+
+import { getRandomColors } from "../../utils/getRandomColors";
 import ProductDrawer from "./ProductDrawer";
-import { useEffect, useState } from "react";
-import { BsArrowRightShort } from "react-icons/bs";
 import CtaButton from "../Commons/CtaButton";
 
-// import { isMobile } from "react-device-detect";
-
 const ProductGrid = ({
-  allSelected,
   customers,
-  currentCategory,
+  currentCategoriesIDs,
   categories,
   filteredWorks,
 }) => {
   const [showButton, setShowButton] = useState(false);
+  const [category, setCategory] = useState([]);
   const location = useLocation();
-  const show_product =
-    location.pathname.split("/")[2] == "producto" &&
-    location.pathname.split("/")[3] != "todos";
+  const [isProductShown, setIsProductShown] = useState(false);
 
-  let category = [];
   useEffect(() => {
-    if (currentCategory.length != 0) {
-      // console.log(categories);
-      category = categories.filter(
-        (item) => item.category_ID == currentCategory
+    //currentCategoriesIDs array of IDs that shows the categories associated to the chosen product
+    // what this fx does is give me the whole category object hooked by the ID. It will be always just a length of 1 since
+    if (currentCategoriesIDs[0] != undefined) {
+      let category_items = categories.filter(
+        (item) => item.category_ID == currentCategoriesIDs[0]
       )[0];
-    }
 
-    console.log(category.category_name_article);
-  }, [currentCategory]);
-  //TODO: arreglar este problema del render condicional.
+      setCategory(category_items);
+    }
+  }, [currentCategoriesIDs, categories]);
+
+  useEffect(() => {
+    setIsProductShown(false);
+    console.log(location.pathname.split("/"));
+    if (
+      location.pathname.split("/")[2] == "producto" &&
+      location.pathname.split("/")[3] != "todos"
+    ) {
+      console.log(true);
+      setIsProductShown(true);
+    }
+  }, [location]);
+
+  const elementRef = useRef();
+
   return (
     <section
       className={`md:grid grid-cols-2 md:gap-4 carousel w-full h-auto py-2 flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll pr-2`}
     >
+      {/* //PRODUCTO CARD fallback */}
       {filteredWorks.length == 0 && category.length != 0 && (
         <div
           className={`item w-auto h-auto flex flex-col justify-center items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50 `}
@@ -54,6 +64,7 @@ const ProductGrid = ({
           </CtaButton>
         </div>
       )}
+      {/* // PRODUCTO CARD */}
       {filteredWorks.map((work, i) => {
         const customer = customers.filter(
           (customer) => customer.customer_ID == work.work_customer
@@ -98,16 +109,17 @@ const ProductGrid = ({
               />
             </div>
 
-            <Drawer.Root defaultOpen={show_product}>
+            <Drawer.Root defaultOpen={isProductShown}>
               <Drawer.Trigger asChild>
                 <Link
-                  to={`/nuestros-trabajos/producto/${work.work_ID}&${work.work_title}`}
+                  to={`/nuestros-productos/producto/${work.work_ID}&${work.work_title}`}
                 >
                   <CtaButton
-                    status={showButton}
-                    setStatus={setShowButton}
-                    url="/"
+                    id={work.work_ID}
                     primary={true}
+                    ref={elementRef}
+                    url={`/nuestros-productos/producto/${work.work_ID}&${work.work_title}`}
+                    asChild
                   >
                     Ver más
                   </CtaButton>

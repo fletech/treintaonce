@@ -27,11 +27,11 @@ const Hero = ({ works }) => {
   return (
     <section className="pb-20 pt-[12vh] h-[70vh] md:h-[92vh]">
       <div className="w-full flex justify-between items-center mb-6">
-        <Subtitle text={"nuestros trabajos realizados"} group={true} />
+        <Subtitle text={"Nuestra producción"} group={true} />
         <CtaButton
           status={showButton}
           setStatus={setShowButton}
-          url="/"
+          url="/nuestros-productos/producto/todos"
           primary={true}
           group={true}
         >

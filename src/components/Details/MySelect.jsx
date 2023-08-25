@@ -12,17 +12,21 @@ import { Link, useLocation } from "react-router-dom";
 //   return category_name;
 // };
 
-const MySelect = ({ categories, currentCategory, setCurrentCategory }) => {
-  const [categoryValue, setCategoryValue] = useState(currentCategory[0]);
+const MySelect = ({
+  categories,
+  currentCategoriesIDs,
+  setCurrentCategoriesIDs,
+}) => {
+  const [categoryValue, setCategoryValue] = useState(currentCategoriesIDs[0]);
   const location = useLocation();
   useEffect(() => {
     console.log(location);
-  }, [currentCategory]);
+  }, [currentCategoriesIDs]);
   return (
     <Select.Root
       value={categoryValue}
       onValueChange={(value) => {
-        setCurrentCategory([value]);
+        setCurrentCategoriesIDs([value]);
         setCategoryValue(value);
       }}
     >
@@ -50,7 +54,7 @@ const MySelect = ({ categories, currentCategory, setCurrentCategory }) => {
                 >
                   {
                     <Link
-                      to={`/nuestros-trabajos/categoria/${_.category_ID}&${_.category_name}`}
+                      to={`/nuestros-productos/categoria/${_.category_ID}&${_.category_name}`}
                     >
                       {_.category_name}
                     </Link>

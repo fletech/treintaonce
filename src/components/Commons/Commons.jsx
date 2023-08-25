@@ -3,7 +3,7 @@ import React from "react";
 const Subtitle = ({ text, group }) => {
   return (
     <h2
-      className={`font-bold text-2xl uppercase text-primary tracking-wider ${
+      className={`font-bold text-2xl uppercase text-primary tracking-wider w-min md:w-fit ${
         !group && "mb-4"
       }`}
     >

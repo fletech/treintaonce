@@ -20,7 +20,7 @@ const Details = () => {
   const location = useLocation();
   const param_id = params.id.split("&")[0];
   const location_path = location.pathname.split("/")[2];
-  const [currentCategory, setCurrentCategory] = useState([]);
+  const [currentCategoriesIDs, setCurrentCategoriesIDs] = useState([]);
   const [filteredWorks, setFilteredWorks] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -64,7 +64,7 @@ const Details = () => {
 
       if (param_id == "todos") {
         setAllSelected(true);
-        setCurrentCategory([]);
+        setCurrentCategoriesIDs([]);
         setFilteredWorks(works.data);
         return;
       }
@@ -79,7 +79,7 @@ const Details = () => {
           (relation) => relation.category_ID
         );
         setFilteredWorks(singleWork);
-        setCurrentCategory(categories_IDS);
+        setCurrentCategoriesIDs(categories_IDS);
       }
 
       if (location_path == "categoria") {
@@ -90,7 +90,7 @@ const Details = () => {
           return works.data.filter((work) => work.work_ID == relation.work_ID);
         });
 
-        setCurrentCategory([param_id]);
+        setCurrentCategoriesIDs([param_id]);
         setFilteredWorks(filtered);
         // }
       }
@@ -106,15 +106,12 @@ const Details = () => {
     location_path,
   ]);
 
-  useEffect(() => {
-    console.log(currentCategory);
-  }, [currentCategory]);
   return (
     works.data &&
     categories.data &&
     relationWorkCategory.data &&
     customers.data &&
-    currentCategory && (
+    currentCategoriesIDs && (
       <motion.div
         initial={{ x: -1000 }}
         animate={{ x: 0 }}
@@ -132,21 +129,21 @@ const Details = () => {
               <SelectMobile
                 allSelected={allSelected}
                 categories={categories.data}
-                currentCategory={currentCategory}
-                setCurrentCategory={setCurrentCategory}
+                currentCategoriesIDs={currentCategoriesIDs}
+                setCurrentCategoriesIDs={setCurrentCategoriesIDs}
               />
             ) : (
               <Aside
                 allSelected={allSelected}
                 categories={categories.data}
-                currentCategory={currentCategory}
+                currentCategoriesIDs={currentCategoriesIDs}
               />
             )}
 
             <ProductGrid
               filteredWorks={filteredWorks}
               customers={customers.data}
-              currentCategory={currentCategory}
+              currentCategoriesIDs={currentCategoriesIDs}
               allSelected={allSelected}
               categories={categories.data}
             />
