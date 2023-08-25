@@ -1,8 +1,12 @@
 import React from "react";
 
-const Subtitle = ({ text }) => {
+const Subtitle = ({ text, group }) => {
   return (
-    <h2 className="font-bold text-2xl uppercase mb-4 text-primary tracking-wider">
+    <h2
+      className={`font-bold text-2xl uppercase text-primary tracking-wider ${
+        !group && "mb-4"
+      }`}
+    >
       {text}
     </h2>
   );

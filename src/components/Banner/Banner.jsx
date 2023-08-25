@@ -6,6 +6,7 @@ import { GoPaperclip } from "react-icons/go";
 import { MdDoneAll, MdOutlineLocalShipping } from "react-icons/md";
 import { content_layout } from "../../../lib/constants";
 import { Subtitle } from "../Commons/Commons";
+import CtaButton from "../Commons/CtaButton";
 
 const Banner = () => {
   const [showButton, setShowButton] = useState(false);
@@ -34,17 +35,28 @@ const Banner = () => {
               </div>
               <div className="w-full h-full flex flex-col justify-center items-center">
                 <p className="text-sm text-center ">{card.text}</p>
-                {card.contact && (
-                  <button>
-                    <p
-                      onMouseOver={() => setShowButton(true)}
-                      onMouseLeave={() => setShowButton(false)}
-                      className="flex justify-center items-center text-primary text-sm font-light hover:font-normal mt-2 "
+                {
+                  card.contact && (
+                    <CtaButton
+                      status={showButton}
+                      setStatus={setShowButton}
+                      url="/"
                     >
-                      Consultar{showButton && <BsArrowRightShort />}
-                    </p>
-                  </button>
-                )}
+                      Consultar
+                    </CtaButton>
+                  )
+
+                  // <button
+                  //   className="relative flex justify-center items-center border-2 px-6 py-2 mt-4 rounded-full hover: font-normal hover:font-normal"
+                  //   onMouseOver={() => setShowButton(true)}
+                  //   onMouseLeave={() => setShowButton(false)}
+                  // >
+                  //   <p className="  text-primary text-sm   ">Consultar</p>
+                  //   {showButton && (
+                  //     <BsArrowRightShort className="absolute right-2 top-[10px] text-primary" />
+                  //   )}
+                  // </button>
+                }
               </div>
             </div>
             {content_layout.banner.cards.length != i + 1 && (

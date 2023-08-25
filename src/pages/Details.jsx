@@ -106,11 +106,15 @@ const Details = () => {
     location_path,
   ]);
 
+  useEffect(() => {
+    console.log(currentCategory);
+  }, [currentCategory]);
   return (
     works.data &&
     categories.data &&
     relationWorkCategory.data &&
-    customers.data && (
+    customers.data &&
+    currentCategory && (
       <motion.div
         initial={{ x: -1000 }}
         animate={{ x: 0 }}
@@ -142,6 +146,9 @@ const Details = () => {
             <ProductGrid
               filteredWorks={filteredWorks}
               customers={customers.data}
+              currentCategory={currentCategory}
+              allSelected={allSelected}
+              categories={categories.data}
             />
           </div>
         </main>

@@ -30,7 +30,10 @@ const ProductDrawer = ({ work }) => {
               })}
           </ul>
           <span id="family-code" className="family-custom py-20 text-primary">
-            Cambiar ruta cuando se hace click en un producto, para ver más
+            Si venimos de {"todos"} tenemos que volver a todos, hay que guardar
+            esa ubicacion, si venimos de una url distinta, volvemos a esa URL.Al
+            volver de un producto, tenemos que volver a mostrar todos los
+            prductos de esa categoria
           </span>
         </div>
       </div>

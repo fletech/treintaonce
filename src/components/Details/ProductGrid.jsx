@@ -3,21 +3,57 @@ import { MyDrawer } from "../Commons/MyDrawer";
 
 import { isMobile } from "react-device-detect";
 import { getRandomColors } from "../../utils/getRandomColors";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProductDrawer from "./ProductDrawer";
+import { useEffect, useState } from "react";
+import { BsArrowRightShort } from "react-icons/bs";
+import CtaButton from "../Commons/CtaButton";
 
 // import { isMobile } from "react-device-detect";
 
-const ProductGrid = ({ filteredWorks, customers }) => {
+const ProductGrid = ({
+  allSelected,
+  customers,
+  currentCategory,
+  categories,
+  filteredWorks,
+}) => {
+  const [showButton, setShowButton] = useState(false);
   const location = useLocation();
   const show_product =
     location.pathname.split("/")[2] == "producto" &&
     location.pathname.split("/")[3] != "todos";
 
+  let category = [];
+  useEffect(() => {
+    if (currentCategory.length != 0) {
+      // console.log(categories);
+      category = categories.filter(
+        (item) => item.category_ID == currentCategory
+      )[0];
+    }
+
+    console.log(category.category_name_article);
+  }, [currentCategory]);
+  //TODO: arreglar este problema del render condicional.
   return (
     <section
       className={`md:grid grid-cols-2 md:gap-4 carousel w-full h-auto py-2 flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll pr-2`}
     >
+      {filteredWorks.length == 0 && category.length != 0 && (
+        <div
+          className={`item w-auto h-auto flex flex-col justify-center items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50 `}
+        >
+          <h2 className="my-4">Sin productos para mostrar</h2>
+          <p className="">
+            Pero te ayudamos a crear {category.category_name_article}{" "}
+            {category.category_name} que necesites
+          </p>
+          <CtaButton status={showButton} setStatus={setShowButton} url="/">
+            Dejanos tu consulta
+          </CtaButton>
+        </div>
+      )}
       {filteredWorks.map((work, i) => {
         const customer = customers.filter(
           (customer) => customer.customer_ID == work.work_customer
@@ -64,9 +100,21 @@ const ProductGrid = ({ filteredWorks, customers }) => {
 
             <Drawer.Root defaultOpen={show_product}>
               <Drawer.Trigger asChild>
-                <button className="text-primary font-normal  border-primary border-2 px-3 rounded-md hover:bg-primary hover:text-bgHighlight transition ease-out duration-500">
-                  Ver más
-                </button>
+                <Link
+                  to={`/nuestros-trabajos/producto/${work.work_ID}&${work.work_title}`}
+                >
+                  <CtaButton
+                    status={showButton}
+                    setStatus={setShowButton}
+                    url="/"
+                    primary={true}
+                  >
+                    Ver más
+                  </CtaButton>
+                  {/* <button className="text-primary font-normal  border-primary border-2 px-3 rounded-md hover:bg-primary hover:text-bgHighlight transition ease-out duration-500">
+                    Ver más
+                  </button> */}
+                </Link>
               </Drawer.Trigger>
 
               <MyDrawer title={work.work_title}>

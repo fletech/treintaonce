@@ -4,9 +4,11 @@ import { Subtitle } from "../Commons/Commons";
 import WorkBox from "./WorkBox";
 import { isMobile } from "react-device-detect";
 import { getRandomNumbers } from "../../utils/getRandomNumbers";
+import CtaButton from "../Commons/CtaButton";
 
 const Hero = ({ works }) => {
   const [first, second] = useMemo(() => getRandomNumbers(works), [works]);
+  const [showButton, setShowButton] = useState(false);
 
   const [worksFiltered, setWorksFiltered] = useState();
 
@@ -20,11 +22,22 @@ const Hero = ({ works }) => {
 
       setWorksFiltered(filtered);
     }
-  }, [works]);
+  }, [works, first, second]);
 
   return (
     <section className="pb-20 pt-[12vh] h-[70vh] md:h-[92vh]">
-      <Subtitle text={"nuestros trabajos realizados"} />
+      <div className="w-full flex justify-between items-center mb-6">
+        <Subtitle text={"nuestros trabajos realizados"} group={true} />
+        <CtaButton
+          status={showButton}
+          setStatus={setShowButton}
+          url="/"
+          primary={true}
+          group={true}
+        >
+          Ver todos los productos
+        </CtaButton>
+      </div>
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 h-full`}>
         {/* Caja de la izquierda */}
         <div className="border border-gray-200 bg-blackish/60 p-2 rounded-lg shadow grid l:hidden">
