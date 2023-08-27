@@ -21,13 +21,6 @@ const Home = () => {
     staleTime: 0,
   });
 
-  // const categories = useQuery({
-  //   queryKey: ["categories"],
-  //   queryFn: fetchGoogleSheetCategories,
-  //   cacheTime: 300000,
-  //   staleTime: 0,
-  // });
-
   if (
     works.isLoading
     // || categories.isLoading
