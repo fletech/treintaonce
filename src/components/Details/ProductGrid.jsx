@@ -7,16 +7,16 @@ import { Link, useLocation } from "react-router-dom";
 import { getRandomColors } from "../../utils/getRandomColors";
 import ProductDrawer from "./ProductDrawer";
 import CtaButton from "../Commons/CtaButton";
+import { createBrowserHistory, createMemoryHistory } from "history";
+const history = createBrowserHistory();
+const history_memory = createMemoryHistory();
 
 const ProductGrid = ({
   allSelected,
   categoryData,
   customers,
-  currentCategoriesIDs,
-  categories,
   filteredWorks,
 }) => {
-  const [showButton, setShowButton] = useState(false);
   // const [category, setCategory] = useState([]);
   const location = useLocation();
   const [isProductShown, setIsProductShown] = useState(false);
@@ -40,9 +40,29 @@ const ProductGrid = ({
   //   console.log(categoryData);
   // }, [categoryData]);
 
+  const handleProductDrawer = (
+    value,
+    { id, title },
+    { category_id, category_name }
+  ) => {
+    console.log(location.search);
+    const locationPathCategory = location.pathname.split("/")[2] == "categoria";
+    const fromHome = location.search == "?home";
+
+    if (locationPathCategory) {
+      if (value) {
+        const url = `/nuestros-productos/producto/${id}&${title}`;
+        history.push(url);
+      }
+      if (!value && !allSelected && fromHome) {
+        const url = `/nuestros-productos/categoria/${category_id}&${category_name}`;
+        history.push(url);
+        setIsProductShown(false);
+      }
+    }
+  };
+
   useEffect(() => {
-    setIsProductShown(false);
-    console.log(categoryData);
     // console.log(location.pathname.split("/"));
     if (
       location.pathname.split("/")[2] == "producto" &&
@@ -69,9 +89,7 @@ const ProductGrid = ({
               Pero te ayudamos a crear {categoryData.category_name_article}{" "}
               {categoryData.category_name} que necesites
             </p>
-            <CtaButton status={showButton} setStatus={setShowButton} url="/">
-              Dejanos tu consulta
-            </CtaButton>
+            <CtaButton url="/">Dejanos tu consulta</CtaButton>
           </div>
         )}
         {/* // PRODUCTO CARD */}
@@ -119,7 +137,22 @@ const ProductGrid = ({
                 />
               </div>
 
-              <Drawer.Root defaultOpen={isProductShown}>
+              <Drawer.Root
+                defaultOpen={isProductShown}
+                onOpenChange={(value) =>
+                  handleProductDrawer(
+                    value,
+                    {
+                      id: work.work_ID,
+                      title: work.work_title,
+                    },
+                    {
+                      category_id: categoryData.category_ID,
+                      category_name: categoryData.category_name,
+                    }
+                  )
+                }
+              >
                 <Drawer.Trigger asChild>
                   <Link
                     to={`/nuestros-productos/categoria/${
@@ -138,9 +171,6 @@ const ProductGrid = ({
                     >
                       Ver más
                     </CtaButton>
-                    {/* <button className="text-primary font-normal  border-primary border-2 px-3 rounded-md hover:bg-primary hover:text-bgHighlight transition ease-out duration-500">
-                    Ver más
-                  </button> */}
                   </Link>
                 </Drawer.Trigger>
 

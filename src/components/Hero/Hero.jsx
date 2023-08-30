@@ -31,7 +31,7 @@ const Hero = ({ works }) => {
         <CtaButton
           status={showButton}
           setStatus={setShowButton}
-          url="/nuestros-productos/producto/todos"
+          url="/nuestros-productos/categoria/todos"
           primary={true}
           group={true}
         >

@@ -84,7 +84,7 @@ const Details = () => {
         const category_items = categories.data.filter(
           (item) => item.category_ID == categories_IDS[0]
         )[0];
-        console.log(category_items);
+
         setFilteredWorks(singleWork);
         setCurrentCategoriesIDs(categories_IDS);
         setCategoryData(category_items);
