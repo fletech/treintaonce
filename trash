@@ -1,0 +1,46 @@
+// ProductGrid.jsx
+useEffect(() => {
+  //currentCategoriesIDs array of IDs that shows the categories associated to the chosen product
+  // what this fx does is give me the whole category object hooked by the ID. It will be always just a length of 1 since
+  //console.log(currentCategoriesIDs);
+  if (currentCategoriesIDs[0] != undefined) {
+    let category_items = categories.filter(
+      (item) => item.category_ID == currentCategoriesIDs[0]
+    )[0];
+
+    setCategory(category_items);
+  } else {
+    setCategory([]);
+  }
+}, [currentCategoriesIDs, categories]);
+
+useEffect(() => {
+  //console.log(selectedCategory);
+}, [selectedCategory]);
+
+const handleProductDrawer = (
+  value,
+  { id, title },
+  { category_id, category_name }
+) => {
+  //console.log(location.search);
+  const locationPathCategory = location.pathname.split("/")[2] == "categoria";
+  const fromHome = location.search == "?home";
+
+  if (locationPathCategory) {
+    //console.log(value);
+    //console.log(allSelected);
+    //console.log(title);
+    if (value) {
+      const url = `/nuestros-productos/producto/${id}&${title}`;
+      history.push(url);
+      return;
+    }
+    if (!value && !allSelected) {
+      const url = `/nuestros-productos/categoria/${category_id}&${category_name}`;
+      history.push(url);
+    } else if (allSelected) {
+      history.push(`/nuestros-productos/categoria/todos`);
+    }
+  }
+};

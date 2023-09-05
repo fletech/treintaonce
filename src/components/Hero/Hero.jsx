@@ -8,7 +8,6 @@ import CtaButton from "../Commons/CtaButton";
 
 const Hero = ({ works }) => {
   const [first, second] = useMemo(() => getRandomNumbers(works), [works]);
-  const [showButton, setShowButton] = useState(false);
 
   const [worksFiltered, setWorksFiltered] = useState();
 
@@ -29,9 +28,7 @@ const Hero = ({ works }) => {
       <div className="w-full flex justify-between items-center mb-6">
         <Subtitle text={"Nuestra producción"} group={true} />
         <CtaButton
-          status={showButton}
-          setStatus={setShowButton}
-          url="/nuestros-productos/categoria/todos"
+          url="/nuestros-productos/categoria/todos?home"
           primary={true}
           group={true}
         >

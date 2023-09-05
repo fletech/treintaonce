@@ -3,11 +3,11 @@ import * as Select from "@radix-ui/react-select";
 import { Link, useLocation } from "react-router-dom";
 
 // const handler = (id, categories) => {
-//   console.log(id);
+//   //console.log(id);
 //   const category_name = categories.filter(
 //     (category) => category.category_ID == id[0]
 //   )[0].category_name;
-//   console.log(category_name);
+//   //console.log(category_name);
 
 //   return category_name;
 // };
@@ -20,7 +20,7 @@ const MySelect = ({
   const [categoryValue, setCategoryValue] = useState(currentCategoriesIDs[0]);
   const location = useLocation();
   useEffect(() => {
-    console.log(location);
+    //console.log(location);
   }, [currentCategoriesIDs]);
   return (
     <Select.Root

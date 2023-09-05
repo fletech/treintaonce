@@ -1,5 +1,3 @@
-import React from "react";
-
 const ProductDrawer = ({ work }) => {
   const text = work.work_long_description;
   const list = text.split("/").length != 0 ? text.split("/") : [text];

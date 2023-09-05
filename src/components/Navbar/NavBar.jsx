@@ -11,8 +11,8 @@ const Navbar = () => {
   };
   const location = useLocation();
   const location_path = location.pathname.split("/")[1];
-  // console.log(location_path);
-  // console.log(isMenuOpen);
+  //console.log(location_path);
+  //console.log(isMenuOpen);
   // useEffect(() => {
   //   if (location.path[1] === "/") {
   //     return location;

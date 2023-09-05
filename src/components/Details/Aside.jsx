@@ -1,7 +1,12 @@
 import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
-const Aside = ({ allSelected, categories, currentCategoriesIDs }) => {
+const Aside = ({
+  allSelected,
+  categories,
+  currentCategoriesIDs,
+  setAllSelected,
+}) => {
   return (
     <div
       className={`flex flex-col w-full max-w-[16vw] mr-4 border-r-2 pr-4 border-gray-200  h-auto place-content-start `}

@@ -1,93 +1,49 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Drawer } from "vaul";
 import { MyDrawer } from "../Commons/MyDrawer";
 import { isMobile } from "react-device-detect";
 import { Link, useLocation } from "react-router-dom";
 
+import { useDetailsContext } from "../../../context/useDetailsContext";
+
 import { getRandomColors } from "../../utils/getRandomColors";
 import ProductDrawer from "./ProductDrawer";
 import CtaButton from "../Commons/CtaButton";
-import { createBrowserHistory, createMemoryHistory } from "history";
-const history = createBrowserHistory();
-const history_memory = createMemoryHistory();
 
-const ProductGrid = ({
-  allSelected,
-  categoryData,
-  customers,
-  filteredWorks,
-}) => {
-  // const [category, setCategory] = useState([]);
+const ProductGrid = () => {
   const location = useLocation();
-  const [isProductShown, setIsProductShown] = useState(false);
 
-  // useEffect(() => {
-  //   //currentCategoriesIDs array of IDs that shows the categories associated to the chosen product
-  //   // what this fx does is give me the whole category object hooked by the ID. It will be always just a length of 1 since
-  //   console.log(currentCategoriesIDs);
-  //   if (currentCategoriesIDs[0] != undefined) {
-  //     let category_items = categories.filter(
-  //       (item) => item.category_ID == currentCategoriesIDs[0]
-  //     )[0];
-
-  //     setCategory(category_items);
-  //   } else {
-  //     setCategory([]);
-  //   }
-  // }, [currentCategoriesIDs, categories]);
-
-  // useEffect(() => {
-  //   console.log(categoryData);
-  // }, [categoryData]);
-
-  const handleProductDrawer = (
-    value,
-    { id, title },
-    { category_id, category_name }
-  ) => {
-    console.log(location.search);
-    const locationPathCategory = location.pathname.split("/")[2] == "categoria";
-    const fromHome = location.search == "?home";
-
-    if (locationPathCategory) {
-      if (value) {
-        const url = `/nuestros-productos/producto/${id}&${title}`;
-        history.push(url);
-      }
-      if (!value && !allSelected && fromHome) {
-        const url = `/nuestros-productos/categoria/${category_id}&${category_name}`;
-        history.push(url);
-        setIsProductShown(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    // console.log(location.pathname.split("/"));
-    if (
-      location.pathname.split("/")[2] == "producto" &&
-      location.pathname.split("/")[3] != "todos"
-    ) {
-      setIsProductShown(true);
-    }
-  }, [location, categoryData]);
+  const {
+    customers,
+    filteredWorks,
+    isProductShown,
+    selectedCategory,
+    selectedProduct,
+    setIsProductShown,
+    setDrawerClosed,
+  } = useDetailsContext();
 
   const elementRef = useRef();
 
+  //console.log(selectedCategory);
+  //console.log(selectedProduct);
+  //console.log(location);
+
   return (
-    categoryData != undefined && (
+    selectedCategory != null &&
+    selectedProduct != null && (
       <section
         className={`md:grid grid-cols-2 md:gap-4 carousel w-full h-auto py-2 flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll pr-2`}
       >
         {/* //PRODUCTO CARD fallback */}
-        {filteredWorks.length == 0 && categoryData.category_ID && (
+        {filteredWorks.length == 0 && selectedCategory.category_ID && (
           <div
             className={`item w-auto h-auto flex flex-col justify-center items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50 `}
           >
             <h2 className="my-4">Sin productos para mostrar</h2>
             <p className="">
-              Pero te ayudamos a crear {categoryData.category_name_article}{" "}
-              {categoryData.category_name} que necesites
+              Pero te ayudamos a crear {selectedCategory.category_name_article}{" "}
+              {selectedCategory.category_name} que necesites
             </p>
             <CtaButton url="/">Dejanos tu consulta</CtaButton>
           </div>
@@ -139,28 +95,33 @@ const ProductGrid = ({
 
               <Drawer.Root
                 defaultOpen={isProductShown}
-                onOpenChange={(value) =>
-                  handleProductDrawer(
-                    value,
-                    {
-                      id: work.work_ID,
-                      title: work.work_title,
-                    },
-                    {
-                      category_id: categoryData.category_ID,
-                      category_name: categoryData.category_name,
-                    }
-                  )
-                }
+                onOpenChange={(value) => {
+                  setIsProductShown(value);
+                  if (!value) {
+                    setDrawerClosed(true);
+                  } else {
+                    setDrawerClosed(false);
+                  }
+                }}
+
+                // onOpenChange={(value) =>
+                //   handleProductDrawer(
+                //     value,
+                //     {
+                //       id: work.work_ID,
+                //       title: work.work_title,
+                //     },
+                //     {
+                //       category_id: selectedCategory.category_ID,
+                //       category_name: selectedCategory.category_name,
+                //     }
+                //   )
+                // }
               >
                 <Drawer.Trigger asChild>
                   <Link
-                    to={`/nuestros-productos/categoria/${
-                      allSelected
-                        ? "todos"
-                        : categoryData.category_ID +
-                          "&" +
-                          categoryData.category_name
+                    to={`/nuestros-productos/producto/${
+                      work.work_ID + "&" + work.work_title
                     }`}
                   >
                     <CtaButton
