@@ -21,6 +21,7 @@ const Details = () => {
   const param_id = params.id.split("&")[0];
   const location_path = location.pathname.split("/")[2];
   const [currentCategoriesIDs, setCurrentCategoriesIDs] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
   const [filteredWorks, setFilteredWorks] = useState([]);
   const [allSelected, setAllSelected] = useState(false);
 
@@ -65,6 +66,7 @@ const Details = () => {
       if (param_id == "todos") {
         setAllSelected(true);
         setCurrentCategoriesIDs([]);
+        setCategoryData([]);
         setFilteredWorks(works.data);
         return;
       }
@@ -78,8 +80,14 @@ const Details = () => {
         const categories_IDS = categories_associated.map(
           (relation) => relation.category_ID
         );
+
+        const category_items = categories.data.filter(
+          (item) => item.category_ID == categories_IDS[0]
+        )[0];
+
         setFilteredWorks(singleWork);
         setCurrentCategoriesIDs(categories_IDS);
+        setCategoryData(category_items);
       }
 
       if (location_path == "categoria") {
@@ -90,7 +98,12 @@ const Details = () => {
           return works.data.filter((work) => work.work_ID == relation.work_ID);
         });
 
+        const category_item = categories.data.filter(
+          (item) => item.category_ID == param_id
+        )[0];
+
         setCurrentCategoriesIDs([param_id]);
+        setCategoryData(category_item);
         setFilteredWorks(filtered);
         // }
       }
@@ -100,8 +113,10 @@ const Details = () => {
     customers.isSuccess,
     relationWorkCategory.isSuccess,
     works.isSuccess,
+    categories.data,
     relationWorkCategory.data,
     works.data,
+    // currentCategoriesIDs,
     param_id,
     location_path,
   ]);
@@ -141,6 +156,7 @@ const Details = () => {
             )}
 
             <ProductGrid
+              categoryData={categoryData}
               filteredWorks={filteredWorks}
               customers={customers.data}
               currentCategoriesIDs={currentCategoriesIDs}

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 const WorkBox = ({ work }) => {
   return (
     <Link
-      to={`/nuestros-productos/producto/${work.work_ID}&${work.work_title}`}
+      to={`/nuestros-productos/producto/${work.work_ID}&${work.work_title}?home`}
     >
-      <div className=" w-full flex p-2 h-full">
+      <div className=" w-full flex p-2 h-full" draggable={true}>
         <div
           style={{
             backgroundImage: `url(${work.work_image_cover})`,

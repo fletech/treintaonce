@@ -30,10 +30,11 @@ const ProductDrawer = ({ work }) => {
               })}
           </ul>
           <span id="family-code" className="family-custom py-20 text-primary">
-            Si venimos de {"todos"} tenemos que volver a todos, hay que guardar
-            esa ubicacion, si venimos de una url distinta, volvemos a esa URL.Al
+            Si venimos de todos tenemos que volver a todos, hay que guardar esa
+            ubicacion, si venimos de una url distinta, volvemos a esa URL.Al
             volver de un producto, tenemos que volver a mostrar todos los
-            prductos de esa categoria
+            prductos de esa categoria:{"-->"} resuelto en parte. Ahora hay que
+            mostrar URL cuando el producto drawer está abierto.
           </span>
         </div>
       </div>
