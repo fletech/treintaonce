@@ -1,7 +1,7 @@
 import { isMobile } from "react-device-detect";
 import { Drawer } from "vaul";
 
-export function MyDrawer({ children, ...props }) {
+export function DrawerPortal({ children, ...props }) {
   const title = props.title;
   return (
     <Drawer.Portal>
@@ -30,9 +30,6 @@ export function MyDrawer({ children, ...props }) {
             {children}
           </div>
         </div>
-        {/* <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
-          <div className="flex gap-6 justify-end max-w-md mx-auto"></div>
-        </div> */}
       </Drawer.Content>
     </Drawer.Portal>
   );

@@ -14,7 +14,7 @@ import {
 
 import { Subtitle } from "../components/Commons/Commons";
 import Aside from "../components/Details/Aside";
-import SelectMobile from "../components/Details/SelectMobile";
+// import SelectMobile from "../components/Details/SelectMobile";
 import ProductGrid from "../components/Details/ProductGrid";
 
 const Details = () => {
@@ -28,12 +28,9 @@ const Details = () => {
 
   const {
     allSelected,
-    categoryData,
     drawerClosed,
-    filteredWorks,
     isProductShown,
     selectedCategory,
-    selectedProduct,
     setAllSelected,
     setCategoryData,
     setCustomers,
@@ -72,6 +69,53 @@ const Details = () => {
     staleTime: 0,
   });
 
+  const handleCategoryChange = () => {
+    if (location_path === "producto" && !drawerClosed) {
+      const singleWork = works.data.find((work) => work.work_ID === param_id);
+      const categories_associated = relationWorkCategory.data.filter(
+        (relation) => relation.work_ID === singleWork.work_ID
+      );
+      const categories_IDS = categories_associated.map(
+        (relation) => relation.category_ID
+      );
+      const works_associated = relationWorkCategory.data.filter(
+        (relation) => relation.category_ID === categories_IDS[0]
+      );
+      const filtered = works_associated.flatMap((relation) =>
+        works.data.filter((work) => work.work_ID === relation.work_ID)
+      );
+
+      const category_items = categories.data.find(
+        (item) => item.category_ID === categories_IDS[0]
+      );
+
+      setIsProductShown(true);
+      allSelected ? setFilteredWorks(works.data) : setFilteredWorks(filtered);
+      !allSelected && setSelectedCategory(category_items);
+      setSelectedProduct(singleWork);
+      setCurrentCategoriesIDs(categories_IDS);
+    }
+
+    if (location_path == "categoria") {
+      const works_associated = relationWorkCategory.data.filter(
+        (relation) => relation.category_ID === param_id
+      );
+      const filtered = works_associated.flatMap((relation) =>
+        works.data.filter((work) => work.work_ID === relation.work_ID)
+      );
+
+      const category_item = categories.data.find(
+        (item) => item.category_ID === param_id
+      );
+
+      setAllSelected(false);
+      setIsProductShown(false);
+      setCurrentCategoriesIDs([param_id]);
+      setSelectedCategory(category_item);
+      setFilteredWorks(filtered);
+    }
+  };
+
   useEffect(() => {
     if (
       categories.isSuccess &&
@@ -80,13 +124,9 @@ const Details = () => {
       customers.isSuccess
     ) {
       setCustomers(customers.data);
-      // TODO: hay que controlar el allSelected, para poder hacer uso del onOpenChange del Drawer.
-      //TODO: hacer uso del estado previo de allSelected, para usarlo como estado al entrar al producto y saber que la ruta anterior era ../todos
-      if (drawerClosed && location_path == "producto") {
-        //TODO: al hacer click en una card del grid de TODOS, se va a la categoria, y al cerrar, vuelve al grid de TODOS, deberia permanecer en todos en vez de navegar a la categoria del producto.
-        console.log(allSelected);
+
+      if (drawerClosed && location_path === "producto") {
         if (allSelected) {
-          console.log("entro");
           navigate(`/nuestros-productos/categoria/todos`);
         } else {
           navigate(
@@ -97,66 +137,23 @@ const Details = () => {
         setDrawerClosed(false);
       }
 
-      if (param_id == "todos") {
+      if (param_id === "todos") {
         setIsProductShown(false);
         setAllSelected(true);
         setCurrentCategoriesIDs([]);
         setCategoryData([]);
+        setSelectedCategory([]);
         setFilteredWorks(works.data);
         return;
       }
-
-      console.log(allSelected);
-      if (location_path == "producto") {
-        const singleWork = works.data.filter(
-          (work) => work.work_ID == param_id
-        );
-        const categories_associated = relationWorkCategory.data.filter(
-          (relation) => relation.work_ID == singleWork[0].work_ID
-        );
-        const categories_IDS = categories_associated.map(
-          (relation) => relation.category_ID
-        );
-
-        const category_items = categories.data.filter(
-          (item) => item.category_ID == categories_IDS[0]
-        )[0];
-        setIsProductShown(true);
-        setFilteredWorks(singleWork);
-        setSelectedProduct(singleWork);
-        setSelectedCategory(category_items);
-        setCurrentCategoriesIDs(categories_IDS);
-        //TODO: no modificar el filtered work para renderizar el producto, si no trabajar con selected work, para no tener que volver a filtrar el objeto de works, y tal ve evitar un llamado a la api?
-      }
-
-      if (location_path == "categoria") {
-        const works_associated = relationWorkCategory.data.filter(
-          (relation) => relation.category_ID == param_id
-        );
-        const filtered = works_associated.flatMap((relation) => {
-          return works.data.filter((work) => work.work_ID == relation.work_ID);
-        });
-
-        const category_item = categories.data.filter(
-          (item) => item.category_ID == param_id
-        )[0];
-        setIsProductShown(false);
-        setCurrentCategoriesIDs([param_id]);
-        setSelectedCategory(category_item);
-        setFilteredWorks(filtered);
-        // }
-      }
+      handleCategoryChange();
     }
   }, [
-    categories.isSuccess,
-    customers.isSuccess,
-    relationWorkCategory.isSuccess,
-    works.isSuccess,
     categories.data,
-    relationWorkCategory.data,
     works.data,
+    relationWorkCategory.data,
+    customers.data,
     isProductShown,
-    // currentCategoriesIDs,
     param_id,
     location_path,
   ]);
@@ -188,12 +185,7 @@ const Details = () => {
                 setCurrentCategoriesIDs={setCurrentCategoriesIDs}
               />
             ) : ( */}
-            <Aside
-              allSelected={allSelected}
-              categories={categories.data}
-              currentCategoriesIDs={currentCategoriesIDs}
-              setAllSelected={setAllSelected}
-            />
+            <Aside categories={categories.data} />
             {/* )} */}
 
             <ProductGrid />

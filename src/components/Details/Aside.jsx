@@ -1,12 +1,10 @@
 import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useDetailsContext } from "../../../context/useDetailsContext";
 
-const Aside = ({
-  allSelected,
-  categories,
-  currentCategoriesIDs,
-  setAllSelected,
-}) => {
+const Aside = ({ categories }) => {
+  const { allSelected, selectedCategory } = useDetailsContext();
+
   return (
     <div
       className={`flex flex-col w-full max-w-[16vw] mr-4 border-r-2 pr-4 border-gray-200  h-auto place-content-start `}
@@ -37,7 +35,7 @@ const Aside = ({
         >
           <div
             className={`capitalize text-blackish/70  mt-1 flex flex-col items-stretch justify-start ${
-              currentCategoriesIDs.includes(category.category_ID)
+              selectedCategory?.category_ID == category.category_ID
                 ? "text-primary font-bold"
                 : ""
             }`}
@@ -46,7 +44,7 @@ const Aside = ({
               to={`/nuestros-productos/categoria/${category.category_ID}&${category.category_name}`}
             >
               <div className="flex items-start">
-                {currentCategoriesIDs.includes(category.category_ID) ? (
+                {selectedCategory?.category_ID == category.category_ID ? (
                   <BiSolidRightArrow
                     size={8}
                     className="mr-2  top-2 relative"
@@ -54,7 +52,7 @@ const Aside = ({
                 ) : (
                   <BiRightArrow size={8} className="mr-2 top-2 relative" />
                 )}
-                {category.category_name}
+                <p>{category.category_name}</p>
               </div>
             </Link>
           </div>

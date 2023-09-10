@@ -28,7 +28,7 @@ const Hero = ({ works }) => {
       <div className="w-full flex justify-between items-center mb-6">
         <Subtitle text={"Nuestra producción"} group={true} />
         <CtaButton
-          url="/nuestros-productos/categoria/todos?home"
+          url="/nuestros-productos/categoria/todos"
           primary={true}
           group={true}
         >

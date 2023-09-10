@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Routes } from "./routes";
 import { ToastContainer } from "react-toastify";
 import { DetailsContextProvider } from "../context/DetailsContextProvider";
+import CustomDrawer from "./components/Commons/CustomDrawer";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BiSolidRightArrow } from "react-icons/bi";
-import { BsBoxSeam, BsArrowRightShort } from "react-icons/bs";
+import { BsBoxSeam } from "react-icons/bs";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { GoPaperclip } from "react-icons/go";
 import { MdDoneAll, MdOutlineLocalShipping } from "react-icons/md";
@@ -25,11 +25,8 @@ const Banner = () => {
       <Subtitle text="Cómo trabajamos?" />
       <div className="flex w-full mt-8  items-stretch ">
         {content_layout.banner.cards.map((card, i) => (
-          <>
-            <div
-              key={i}
-              className="relative card w-full flex flex-col items-center bg-bgHighlight  text-blackish font-light tracking-wider p-3 rounded-lg shadow-sm h-auto"
-            >
+          <div className="flex w-full " key={i}>
+            <div className="relative card w-full flex flex-col items-center bg-bgHighlight  text-blackish font-light tracking-wider p-3 rounded-lg shadow-sm h-auto">
               <div className="my-2">
                 {getIcon(i, { tw: "text-2xl text-primary" })}
               </div>
@@ -66,7 +63,7 @@ const Banner = () => {
                 <BiSolidRightArrow className="text-primary/40" />
               </div>
             )}
-          </>
+          </div>
         ))}
       </div>
     </section>
