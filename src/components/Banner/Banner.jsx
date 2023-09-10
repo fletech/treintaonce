@@ -32,33 +32,19 @@ const Banner = () => {
               </div>
               <div className="w-full h-full flex flex-col justify-center items-center">
                 <p className="text-sm text-center ">{card.text}</p>
-                {
-                  card.contact && (
-                    <CtaButton
-                      status={showButton}
-                      setStatus={setShowButton}
-                      url="/"
-                    >
-                      Consultar
-                    </CtaButton>
-                  )
-
-                  // <button
-                  //   className="relative flex justify-center items-center border-2 px-6 py-2 mt-4 rounded-full hover: font-normal hover:font-normal"
-                  //   onMouseOver={() => setShowButton(true)}
-                  //   onMouseLeave={() => setShowButton(false)}
-                  // >
-                  //   <p className="  text-primary text-sm   ">Consultar</p>
-                  //   {showButton && (
-                  //     <BsArrowRightShort className="absolute right-2 top-[10px] text-primary" />
-                  //   )}
-                  // </button>
-                }
+                {card.contact && (
+                  <CtaButton
+                    status={showButton}
+                    setStatus={setShowButton}
+                    url="/"
+                  >
+                    Consultar
+                  </CtaButton>
+                )}
               </div>
             </div>
             {content_layout.banner.cards.length != i + 1 && (
               <div className="flex w-1/4 h-auto items-center justify-center">
-                {/* <BiSolidRightArrow className="text-primary/20" /> */}
                 <BiSolidRightArrow className="text-primary/30" />
                 <BiSolidRightArrow className="text-primary/40" />
               </div>

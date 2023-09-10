@@ -56,18 +56,6 @@ const Aside = ({ categories }) => {
               </div>
             </Link>
           </div>
-          {/* TODO: puede ser productos dentro de la categoria */}
-          {/* <div className="ml-6   border-l-[1px] border-gray-300">
-                  {}
-                  <div className="flex">
-                    <span className="text-gray-300 relative -left-0.5">-</span>
-                    <p className="text-blackish/50 ">Producto</p>
-                  </div>
-                  <div className="flex">
-                    <span className="text-gray-300 relative -left-0.5">-</span>
-                    <p className="text-blackish/50 ">Producto</p>
-                  </div>
-                </div> */}
         </div>
       ))}
     </div>

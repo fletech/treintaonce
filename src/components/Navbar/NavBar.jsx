@@ -1,33 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { content_layout } from "../../../lib/constants";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [routePath, setRoutePath] = useState("");
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
   const location = useLocation();
   const location_path = location.pathname.split("/")[1];
-  //console.log(location_path);
-  //console.log(isMenuOpen);
-  // useEffect(() => {
-  //   if (location.path[1] === "/") {
-  //     return location;
-  //   }
-  // }, []);
+
   return (
     <header>
       <nav className="h-[8vh] px-8 md:px-24 lg:px-60 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
         <div className="flex items-start">
-          {/*<img src="/path/to/your/logo.png" alt="Logo" className="h-8 w-8 mr-4" /> */}
-
           <Link to={"/"}>
-            <span className="font-bold text-lg">
+            <img src={"/assets/logo.svg"} className="w-full h-full" />
+            {/* <span className="font-bold text-lg">
               treinta<span className="text-primary">ON</span>ce
-            </span>
+            </span> */}
           </Link>
         </div>
         <div className="hidden md:flex items-center ">
