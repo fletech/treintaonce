@@ -1,11 +1,11 @@
 import { isMobile } from "react-device-detect";
 import { Drawer } from "vaul";
 
-export function MyDrawer({ children, ...props }) {
+export function DrawerPortal({ children, ...props }) {
   const title = props.title;
   return (
     <Drawer.Portal>
-      <Drawer.Overlay className="fixed inset-0 bg-blackish/50 bg-primary/80" />
+      <Drawer.Overlay className="fixed inset-0 bg-blackish/50" />
       <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-14 md:left-40 lg:left-40 md:right-40 lg:right-40">
         <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1">
           {isMobile && (
@@ -30,9 +30,6 @@ export function MyDrawer({ children, ...props }) {
             {children}
           </div>
         </div>
-        {/* <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
-          <div className="flex gap-6 justify-end max-w-md mx-auto"></div>
-        </div> */}
       </Drawer.Content>
     </Drawer.Portal>
   );

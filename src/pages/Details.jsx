@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
+import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDetailsContext } from "../../context/useDetailsContext";
+
 import {
   fetchGoogleSheetCategories,
   fetchGoogleSheetCustomers,
@@ -10,20 +14,32 @@ import {
 
 import { Subtitle } from "../components/Commons/Commons";
 import Aside from "../components/Details/Aside";
-import SelectMobile from "../components/Details/SelectMobile";
+// import SelectMobile from "../components/Details/SelectMobile";
 import ProductGrid from "../components/Details/ProductGrid";
-import { isMobile } from "react-device-detect";
-import { motion } from "framer-motion";
 
 const Details = () => {
   const params = useParams();
-  const location = useLocation();
   const param_id = params.id.split("&")[0];
+  const location = useLocation();
   const location_path = location.pathname.split("/")[2];
+  const navigate = useNavigate();
+
   const [currentCategoriesIDs, setCurrentCategoriesIDs] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
-  const [filteredWorks, setFilteredWorks] = useState([]);
-  const [allSelected, setAllSelected] = useState(false);
+
+  const {
+    allSelected,
+    drawerClosed,
+    isProductShown,
+    selectedCategory,
+    setAllSelected,
+    setCategoryData,
+    setCustomers,
+    setDrawerClosed,
+    setFilteredWorks,
+    setIsProductShown,
+    setSelectedProduct,
+    setSelectedCategory,
+  } = useDetailsContext();
 
   const works = useQuery({
     queryKey: ["works"],
@@ -42,7 +58,6 @@ const Details = () => {
   const relationWorkCategory = useQuery({
     queryKey: ["works-categories"],
     queryFn: fetchGoogleSheetRelationWorkCategory,
-
     cacheTime: 300000,
     staleTime: 0,
   });
@@ -54,6 +69,53 @@ const Details = () => {
     staleTime: 0,
   });
 
+  const handleCategoryChange = () => {
+    if (location_path === "producto" && !drawerClosed) {
+      const singleWork = works.data.find((work) => work.work_ID === param_id);
+      const categories_associated = relationWorkCategory.data.filter(
+        (relation) => relation.work_ID === singleWork.work_ID
+      );
+      const categories_IDS = categories_associated.map(
+        (relation) => relation.category_ID
+      );
+      const works_associated = relationWorkCategory.data.filter(
+        (relation) => relation.category_ID === categories_IDS[0]
+      );
+      const filtered = works_associated.flatMap((relation) =>
+        works.data.filter((work) => work.work_ID === relation.work_ID)
+      );
+
+      const category_items = categories.data.find(
+        (item) => item.category_ID === categories_IDS[0]
+      );
+
+      setIsProductShown(true);
+      allSelected ? setFilteredWorks(works.data) : setFilteredWorks(filtered);
+      !allSelected && setSelectedCategory(category_items);
+      setSelectedProduct(singleWork);
+      setCurrentCategoriesIDs(categories_IDS);
+    }
+
+    if (location_path == "categoria") {
+      const works_associated = relationWorkCategory.data.filter(
+        (relation) => relation.category_ID === param_id
+      );
+      const filtered = works_associated.flatMap((relation) =>
+        works.data.filter((work) => work.work_ID === relation.work_ID)
+      );
+
+      const category_item = categories.data.find(
+        (item) => item.category_ID === param_id
+      );
+
+      setAllSelected(false);
+      setIsProductShown(false);
+      setCurrentCategoriesIDs([param_id]);
+      setSelectedCategory(category_item);
+      setFilteredWorks(filtered);
+    }
+  };
+
   useEffect(() => {
     if (
       categories.isSuccess &&
@@ -61,62 +123,37 @@ const Details = () => {
       relationWorkCategory.isSuccess &&
       customers.isSuccess
     ) {
-      setAllSelected(false);
+      setCustomers(customers.data);
 
-      if (param_id == "todos") {
+      if (drawerClosed && location_path === "producto") {
+        if (allSelected) {
+          navigate(`/nuestros-productos/categoria/todos`);
+        } else {
+          navigate(
+            `/nuestros-productos/categoria/${selectedCategory.category_ID}&${selectedCategory.category_name}`
+          );
+        }
+      } else {
+        setDrawerClosed(false);
+      }
+
+      if (param_id === "todos") {
+        setIsProductShown(false);
         setAllSelected(true);
         setCurrentCategoriesIDs([]);
         setCategoryData([]);
+        setSelectedCategory([]);
         setFilteredWorks(works.data);
         return;
       }
-      if (location_path == "producto") {
-        const singleWork = works.data.filter(
-          (work) => work.work_ID == param_id
-        );
-        const categories_associated = relationWorkCategory.data.filter(
-          (relation) => relation.work_ID == singleWork[0].work_ID
-        );
-        const categories_IDS = categories_associated.map(
-          (relation) => relation.category_ID
-        );
-
-        const category_items = categories.data.filter(
-          (item) => item.category_ID == categories_IDS[0]
-        )[0];
-
-        setFilteredWorks(singleWork);
-        setCurrentCategoriesIDs(categories_IDS);
-        setCategoryData(category_items);
-      }
-
-      if (location_path == "categoria") {
-        const works_associated = relationWorkCategory.data.filter(
-          (relation) => relation.category_ID == param_id
-        );
-        const filtered = works_associated.flatMap((relation) => {
-          return works.data.filter((work) => work.work_ID == relation.work_ID);
-        });
-
-        const category_item = categories.data.filter(
-          (item) => item.category_ID == param_id
-        )[0];
-
-        setCurrentCategoriesIDs([param_id]);
-        setCategoryData(category_item);
-        setFilteredWorks(filtered);
-        // }
-      }
+      handleCategoryChange();
     }
   }, [
-    categories.isSuccess,
-    customers.isSuccess,
-    relationWorkCategory.isSuccess,
-    works.isSuccess,
     categories.data,
-    relationWorkCategory.data,
     works.data,
-    // currentCategoriesIDs,
+    relationWorkCategory.data,
+    customers.data,
+    isProductShown,
     param_id,
     location_path,
   ]);
@@ -140,29 +177,18 @@ const Details = () => {
               isMobile ? "flex-col min-h-[40vh]" : "max-h-[80vh]"
             }  mt-4 border-y-2 border-gray-200 py-4`}
           >
-            {isMobile ? (
+            {/* {isMobile ? (
               <SelectMobile
                 allSelected={allSelected}
                 categories={categories.data}
                 currentCategoriesIDs={currentCategoriesIDs}
                 setCurrentCategoriesIDs={setCurrentCategoriesIDs}
               />
-            ) : (
-              <Aside
-                allSelected={allSelected}
-                categories={categories.data}
-                currentCategoriesIDs={currentCategoriesIDs}
-              />
-            )}
+            ) : ( */}
+            <Aside categories={categories.data} />
+            {/* )} */}
 
-            <ProductGrid
-              categoryData={categoryData}
-              filteredWorks={filteredWorks}
-              customers={customers.data}
-              currentCategoriesIDs={currentCategoriesIDs}
-              allSelected={allSelected}
-              categories={categories.data}
-            />
+            <ProductGrid />
           </div>
         </main>
       </motion.div>

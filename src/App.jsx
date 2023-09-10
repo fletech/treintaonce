@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // import Homepage from "./pages/HomePage";
 import { Routes } from "./routes";
 import { ToastContainer } from "react-toastify";
+import { DetailsContextProvider } from "../context/DetailsContextProvider";
+import CustomDrawer from "./components/Commons/CustomDrawer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,14 +18,16 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <MainLayout>
+    <DetailsContextProvider>
+      <QueryClientProvider client={queryClient}>
+        {/* <MainLayout>
         <Homepage />
       </MainLayout> */}
-      <Routes isAuthorized={true} />
-      <ReactQueryDevtools initialIsOpen={false} />
-      <ToastContainer />
-    </QueryClientProvider>
+        <Routes isAuthorized={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <ToastContainer />
+      </QueryClientProvider>
+    </DetailsContextProvider>
   );
 }
 

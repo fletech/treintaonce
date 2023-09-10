@@ -1,19 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  // fetchGoogleSheetCategories,
-  fetchGoogleSheetData,
-} from "../../lib/api";
+import { motion } from "framer-motion";
 
+import { fetchGoogleSheetData } from "../../lib/api";
 import DescriptionSection from "../components/Hero/DescriptionSection";
 import Hero from "../components/Hero/Hero";
 import Banner from "../components/Banner/Banner";
 import Loading from "../components/Hero/HeroLoading";
 
-import { motion } from "framer-motion";
-
-import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDetailsContext } from "../../context/useDetailsContext";
 
 const Home = () => {
+  const location = useLocation();
+  const location_path = location.pathname;
+  const {
+    setIsProductShown,
+    setFilteredWorks,
+    setAllSelected,
+    setSelectedProduct,
+    setSelectedCategory,
+  } = useDetailsContext();
+
   const works = useQuery({
     queryKey: ["works"],
     queryFn: fetchGoogleSheetData,
@@ -21,13 +29,22 @@ const Home = () => {
     staleTime: 0,
   });
 
+  useEffect(() => {
+    if (location_path == "/") {
+      setIsProductShown(false);
+      setFilteredWorks([]);
+      setAllSelected(false);
+      setSelectedProduct([]);
+      setSelectedCategory([]);
+    }
+  }, [location_path]);
+
   if (
     works.isLoading
     // || categories.isLoading
   ) {
     return <Loading />;
   }
-
   return (
     works.data && (
       // categories.data &&

@@ -1,6 +1,4 @@
-import React from "react";
-
-const ProductDrawer = ({ work }) => {
+const DrawerContent = ({ work }) => {
   const text = work.work_long_description;
   const list = text.split("/").length != 0 ? text.split("/") : [text];
 
@@ -29,7 +27,7 @@ const ProductDrawer = ({ work }) => {
                   return <li key={i}>{item}</li>;
               })}
           </ul>
-          <span id="family-code" className="family-custom py-20 text-primary">
+          <span id="family-code" className="family-custom mt-20 text-primary">
             Si venimos de todos tenemos que volver a todos, hay que guardar esa
             ubicacion, si venimos de una url distinta, volvemos a esa URL.Al
             volver de un producto, tenemos que volver a mostrar todos los
@@ -41,4 +39,4 @@ const ProductDrawer = ({ work }) => {
     </div>
   );
 };
-export default ProductDrawer;
+export default DrawerContent;
