@@ -1,5 +1,5 @@
-import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
-import { Link } from "react-router-dom";
+// import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
+// import { Link } from "react-router-dom";
 import MySelect from "./MySelect";
 
 const SelectMobile = ({

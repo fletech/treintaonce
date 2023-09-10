@@ -1,4 +1,3 @@
-import { AnimatePresence } from "framer-motion";
 import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = ({ isPublic, isAuthorized }) => {
