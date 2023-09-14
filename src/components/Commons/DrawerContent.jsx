@@ -1,3 +1,5 @@
+import Gallery from "../Gallery/Gallery";
+
 const DrawerContent = ({ work }) => {
   const text = work.work_long_description;
   const list = text.split("/").length != 0 ? text.split("/") : [text];
@@ -27,13 +29,7 @@ const DrawerContent = ({ work }) => {
                   return <li key={i}>{item}</li>;
               })}
           </ul>
-          <span id="family-code" className="family-custom mt-20 text-primary">
-            Si venimos de todos tenemos que volver a todos, hay que guardar esa
-            ubicacion, si venimos de una url distinta, volvemos a esa URL.Al
-            volver de un producto, tenemos que volver a mostrar todos los
-            prductos de esa categoria:{"-->"} resuelto en parte. Ahora hay que
-            mostrar URL cuando el producto drawer está abierto.
-          </span>
+          <Gallery />
         </div>
       </div>
     </div>
