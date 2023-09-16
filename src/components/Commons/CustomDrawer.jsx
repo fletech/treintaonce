@@ -27,7 +27,7 @@ const CustomDrawer = ({ work, elementRef }) => {
           if (value) setSelectedProduct(work);
         }}
       >
-        <Drawer.Trigger asChild>
+        <Drawer.Trigger asChild className="z-100">
           <Link
             to={`/nuestros-productos/producto/${
               work.work_ID + "&" + work.work_title

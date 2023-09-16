@@ -24,7 +24,7 @@ const ProductGrid = () => {
 
   return (
     <section
-      className={`md:grid grid-cols-2 md:gap-4 carousel w-full h-auto py-2 flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll pr-2`}
+      className={`no-scrollbar md:grid grid-cols-2 md:gap-4 carousel w-full h-auto  flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll`}
     >
       {/* //PRODUCTO CARD fallback */}
       {filteredWorks.length == 0 && selectedCategory?.category_ID && (

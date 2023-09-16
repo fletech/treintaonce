@@ -6,8 +6,8 @@ export function DrawerPortal({ children, ...props }) {
   return (
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-blackish/50" />
-      <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-14 md:left-40 lg:left-40 md:right-40 lg:right-40">
-        <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1">
+      <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-10 md:left-32 lg:left-32 md:right-32 lg:right-32">
+        <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1 overflow-auto">
           {isMobile && (
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-primary/40 mb-8" />
           )}
@@ -22,8 +22,8 @@ export function DrawerPortal({ children, ...props }) {
               </p>
             </div>
           )}
-          <div className="max-w-md mx-auto flex flex-col justify-center items-center">
-            <h2 className=" font-bold text-2xl my-2 w-full text-blackish/80 uppercase ">
+          <div className="w-full mx-auto flex flex-col justify-center items-center">
+            <h2 className=" font-bold text-2xl my-2 w-full text-blackish/80 uppercase text-center mb-10">
               {title}
             </h2>
 

@@ -1,8 +1,33 @@
 import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useDetailsContext } from "../../../context/useDetailsContext";
+import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
+import { useState } from "react";
 
-const Aside = ({ categories }) => {
+export const MobileAside = ({ categories }) => {
+  const { allSelected, openMobileAside, selectedCategory, setOpenMobileAside } =
+    useDetailsContext();
+  const [filtered, setFiltered] = useState(false);
+
+  const filterHandler = () => {
+    setOpenMobileAside(!openMobileAside);
+  };
+  return (
+    <div className="h-[40px] flex  justify-start items-center mb-4">
+      <div className="mr-2 text-2xl" onClick={filterHandler}>
+        {!openMobileAside ? <BsFilterCircle /> : <BsFilterCircleFill />}
+      </div>
+      <div>Mostrando: {selectedCategory?.category_name}</div>
+      <div
+        className={`absolute ${
+          openMobileAside ? "" : "hidden"
+        } w-full bg-white border rounded-md h-full top-14 `}
+      ></div>
+    </div>
+  );
+};
+
+export const DesktopAside = ({ categories }) => {
   const { allSelected, selectedCategory } = useDetailsContext();
 
   return (
@@ -31,7 +56,7 @@ const Aside = ({ categories }) => {
       {categories.map((category) => (
         <div
           key={category.category_ID}
-          className="w-auto overflow-y-scroll h-auto  "
+          className="w-auto overflow-y-scroll h-auto  no-scrollbar"
         >
           <div
             className={`capitalize text-blackish/70  mt-1 flex flex-col items-stretch justify-start ${
@@ -61,4 +86,3 @@ const Aside = ({ categories }) => {
     </div>
   );
 };
-export default Aside;

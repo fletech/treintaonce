@@ -13,10 +13,10 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="h-[8vh] px-8 md:px-24 lg:px-60 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
+      <nav className="h-[8vh] px-8 md:px-20 lg:px-32 w-full flex items-center justify-between backdrop-blur-xl fixed z-10 bg-navbar opacity-97">
         <div className="flex items-start">
           <Link to={"/"}>
-            <img src={"/assets/logo.svg"} className="w-full h-full" />
+            <img src={"/assets/logo.svg"} className="w-[130px] h-full" />
             {/* <span className="font-bold text-lg">
               treinta<span className="text-primary">ON</span>ce
             </span> */}

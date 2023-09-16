@@ -15,6 +15,7 @@ export const DetailsContextProvider = ({ children }) => {
   const [customers, setCustomers] = useState(null);
   const [previousCategory, setPreviousCategory] = useState(null);
   const [drawerClosed, setDrawerClosed] = useState();
+  const [openMobileAside, setOpenMobileAside] = useState();
 
   // const [navigationFlow, setNavigationFlow] = useState({
 
@@ -27,6 +28,7 @@ export const DetailsContextProvider = ({ children }) => {
     drawerClosed,
     filteredWorks,
     isProductShown,
+    openMobileAside,
     previousCategory,
     selectedCategory,
     selectedProduct,
@@ -36,6 +38,7 @@ export const DetailsContextProvider = ({ children }) => {
     setDrawerClosed,
     setFilteredWorks,
     setIsProductShown,
+    setOpenMobileAside,
     setPreviousCategory,
     setSelectedCategory,
     setSelectedProduct,

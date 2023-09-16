@@ -13,8 +13,7 @@ import {
 } from "../../lib/api";
 
 import { Subtitle } from "../components/Commons/Commons";
-import Aside from "../components/Details/Aside";
-// import SelectMobile from "../components/Details/SelectMobile";
+import { DesktopAside, MobileAside } from "../components/Details/Aside";
 import ProductGrid from "../components/Details/ProductGrid";
 
 const Details = () => {
@@ -173,20 +172,15 @@ const Details = () => {
         <main className={`mt-24 w-full h-auto md:min-h-[80vh]`}>
           <Subtitle text={"nuestra vidriera virtual"} />
           <div
-            className={`flex  ${
+            className={`flex relative ${
               isMobile ? "flex-col min-h-[40vh]" : "max-h-[80vh]"
             }  mt-4 border-y-2 border-gray-200 py-4`}
           >
-            {/* {isMobile ? (
-              <SelectMobile
-                allSelected={allSelected}
-                categories={categories.data}
-                currentCategoriesIDs={currentCategoriesIDs}
-                setCurrentCategoriesIDs={setCurrentCategoriesIDs}
-              />
-            ) : ( */}
-            <Aside categories={categories.data} />
-            {/* )} */}
+            {isMobile ? (
+              <MobileAside categories={categories.data} />
+            ) : (
+              <DesktopAside categories={categories.data} />
+            )}
 
             <ProductGrid />
           </div>

@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 import { useDetailsContext } from "../../../context/useDetailsContext";
 
 const CtaButton = forwardRef(function CtaButton({ children, ...props }, ref) {
-  const { setSelectedProduct } = useDetailsContext();
+  const { setSelectedProduct, openMobileAside } = useDetailsContext();
   const { asChild, group, primary, url, work } = props;
 
   const Button = () => {
     return (
       <button
-        className={`relative group  w-full flex justify-center items-center border-2 px-6 py-2  rounded-full hover:font-normal hover:bg-primary  transition-colors ${
+        //TODO: Ver si está bien ocultar el relative cuando está abierto el filter de categorias. Porque es
+        //un componente global
+        className={`${
+          openMobileAside ? "" : "relative"
+        } group  w-full flex justify-center items-center border-2 px-6 py-2  rounded-full hover:font-normal hover:bg-primary  transition-colors ${
           primary ? "border-primary" : ""
         } ${!group && "mt-4"}`}
         onClick={() => setSelectedProduct(work)}
-        // onMouseOver={() => setStatus(true)}
-        // onMouseLeave={() => setStatus(false)}
       >
         <p className="  text-primary text-sm  group-hover:text-white ">
           {children}

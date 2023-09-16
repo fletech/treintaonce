@@ -13,7 +13,7 @@ const MainLayout = () => {
       transition={{ duration: 0.5 }}
     >
       <Navbar />
-      <div className="min-h-screen flex flex-col px-8 md:px-24 lg:px-60 bg-bgMain">
+      <div className="min-h-screen flex flex-col px-8 md:px-20 lg:px-32 bg-bgMain">
         <main className="">
           <AnimatePresence mode="wait">
             <Outlet />
