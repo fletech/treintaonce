@@ -163,11 +163,17 @@ const Details = () => {
     relationWorkCategory.data &&
     customers.data &&
     currentCategoriesIDs && (
+      // <motion.div
+      //   initial={{ x: -1000 }}
+      //   animate={{ x: 0 }}
+      //   exit={{ x: 0 }}
+      //   transition={{ duration: 0.5 }}
+      // >
       <motion.div
-        initial={{ x: -1000 }}
-        animate={{ x: 0 }}
-        exit={{ x: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0.5, x: 0 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -100 }}
+        transition={{ duration: 0.7 }}
       >
         <main className={`mt-24 w-full h-auto md:min-h-[80vh]`}>
           <Subtitle text={"nuestra vidriera virtual"} />
