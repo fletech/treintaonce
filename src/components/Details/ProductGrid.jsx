@@ -8,6 +8,7 @@ import { getRandomColors } from "../../utils/getRandomColors";
 
 import CtaButton from "../Commons/CtaButton";
 import CustomDrawer from "../Commons/CustomDrawer";
+import { motion } from "framer-motion";
 
 const avatar = () => {
   return `https://source.boringavatars.com/marble/240/?colors=${getRandomColors()}`;
@@ -45,43 +46,58 @@ const ProductGrid = () => {
           (customer) => customer.customer_ID == work.work_customer
         )[0];
 
+        const random_duration = Math.random();
+
         const customer_logo =
           customer.customer_logo == 0 ? avatar() : customer.customer_logo;
         return (
-          <div
-            key={work.work_ID}
-            className={`item w-auto h-auto flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
-              i == 0 ? "" : "ml-4 md:ml-0"
-            }`}
+          // <motion.div
+          //   initial={{ opacity: 0, x: 0 }}
+          //   animate={{ opacity: 1, x: 0 }}
+          //   exit={{ opacity: 0, x: -100 }}
+          //   transition={{ duration: (i + 10) / 10 }}
+          //   key={work.work_ID}
+          // >
+          <motion.div
+            initial={{ y: 1000 }}
+            animate={{ y: 0 }}
+            exit={{ y: 0 }}
+            transition={{ duration: (i + 3) / 10 }}
           >
-            <div className="flex w-full h-full justify-start flex-col">
-              <h2 className=" font-semibold text-xl text-blackish/80">
-                {work.work_title}
-              </h2>
-              <p className="font-light text-blackish/80 my-2">
-                {work.work_short_description}
-              </p>
-              <div className="flex items-center h-auto">
-                <div className="bg-blackish/30  h-auto mr-2 rounded-full p-[1px]">
-                  <img src={customer_logo} className="w-[30px] h-[30px] " />
-                </div>
-                <p className="font-normal text-blackish/60 ">
-                  {customer.customer_name}
-                </p>
-              </div>
-            </div>
             <div
-              className={`${
-                isMobile ? "w-[70vw]" : "min-w-[300px]"
-              }  grow h-full  my-4 mx-full flex flex-col justify-between items-center `}
+              className={`item w-auto h-auto flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
+                i == 0 ? "" : "ml-4 md:ml-0"
+              }`}
             >
-              <img
-                src={work.work_image_cover}
-                className="max-w-[200px] w-full rounded-xl "
-              />
+              <div className="flex w-full h-full justify-start flex-col">
+                <h2 className=" font-semibold text-xl text-blackish/80">
+                  {work.work_title}
+                </h2>
+                <p className="font-light text-blackish/80 my-2">
+                  {work.work_short_description}
+                </p>
+                <div className="flex items-center h-auto">
+                  <div className="bg-blackish/30  h-auto mr-2 rounded-full p-[1px]">
+                    <img src={customer_logo} className="w-[30px] h-[30px] " />
+                  </div>
+                  <p className="font-normal text-blackish/60 ">
+                    {customer.customer_name}
+                  </p>
+                </div>
+              </div>
+              <div
+                className={`${
+                  isMobile ? "w-[70vw]" : "min-w-[300px]"
+                }  grow h-full  my-4 mx-full flex flex-col justify-between items-center `}
+              >
+                <img
+                  src={work.work_image_cover}
+                  className="max-w-[200px] w-full rounded-xl "
+                />
+              </div>
+              <CustomDrawer work={work} elementRef={elementRef} />
             </div>
-            <CustomDrawer work={work} elementRef={elementRef} />
-          </div>
+          </motion.div>
         );
       })}
     </section>
