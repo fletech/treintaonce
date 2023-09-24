@@ -5,8 +5,9 @@ import AnonymousLayout from "../layout/AnonymousLayout";
 
 // Pages
 import Login from "../pages/Login";
-import Home from "../pages/Home";
+import Contact from "../pages/Contact";
 import Details from "../pages/Details";
+import Home from "../pages/Home";
 import { renderRoutes } from "./generate-routes";
 
 export const routes = [
@@ -67,6 +68,12 @@ export const routes = [
             //},
           },
         ],
+      },
+      {
+        name: "contact",
+        title: "Contactanos",
+        component: Contact,
+        path: "/contactanos",
       },
     ],
   },
