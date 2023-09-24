@@ -18,6 +18,8 @@ export default function HookForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-primary px-0"></form>
+    <form onSubmit={handleSubmit(onSubmit)} className="bg-primary px-0">
+      
+    </form>
   );
 }

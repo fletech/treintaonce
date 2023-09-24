@@ -1,5 +1,5 @@
-import HookForm from "../components/Contact/ContactForm";
-import { ChakraProvider, CSSReset, Box } from "@chakra-ui/react";
+import HookForm from "../components/Contact/HookForm";
+
 
 const Contact = () => {
   return (
