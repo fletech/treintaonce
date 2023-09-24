@@ -1,10 +1,9 @@
-import HookForm from "../components/Contact/HookForm";
-
+import ContactForm from "../components/Contact/ContactForm";
 
 const Contact = () => {
   return (
     <div className="relative top-20  w-full h-full ">
-      <HookForm />
+      <ContactForm />
     </div>
   );
 };

@@ -37,7 +37,7 @@ const ProductGrid = () => {
             Pero te ayudamos a crear {selectedCategory.category_name_article}{" "}
             {selectedCategory.category_name} que necesites
           </p>
-          <CtaButton url="/">Dejanos tu consulta</CtaButton>
+          <CtaButton url="/contactanos">Dejanos tu consulta</CtaButton>
         </div>
       )}
       {/* // PRODUCTO CARD */}
