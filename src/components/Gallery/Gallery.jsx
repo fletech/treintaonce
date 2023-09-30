@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDetailsContext } from "../../../context/useDetailsContext";
 
-const GalleryItem = ({ item, index, setImageIndex }) => {
+const GalleryItem = ({ item, index, setImageIndex, imageIndex }) => {
   return (
     <div onClick={() => setImageIndex(index)} className="w-[100px] h-auto m-2">
       <img
         src={item}
-        className=" w-[100px] h-[100px] border p-2 rounded-md  hover:bg-secondary cursor-pointer transition-colors bg-white"
+        className={` w-[100px] h-[100px] border p-2 rounded-md  hover:border-2 cursor-pointer transition-colors bg-white ${
+          index == imageIndex && "border-primary"
+        }`}
       />
     </div>
   );
@@ -31,11 +33,11 @@ const Gallery = () => {
   const images = imagesHandler();
 
   return (
-    <div className=" flex flex-col justify-center items-center mb-10 border rounded-md overflow-hidden">
+    <div className=" flex flex-col justify-center items-center mb-10 border-2 rounded-md overflow-hidden bg-white">
       <div className="main-image w-[300px] h-[300px] mb-10 ">
         <img src={images[imageIndex].original} />
       </div>
-      <div className="no-scrollbar overflow-x-scroll w-full flex justify-start items-center bg-blackish/20 px-2 ">
+      <div className="no-scrollbar overflow-x-scroll w-full flex justify-start items-center px-2 ">
         <div className="flex justify-start w-full  w-max ">
           {images.map((item, i) => (
             //TODO: remarcar imagen seleccionada
@@ -44,6 +46,7 @@ const Gallery = () => {
               item={item.original}
               index={i}
               setImageIndex={setImageIndex}
+              imageIndex={imageIndex}
             />
           ))}
         </div>

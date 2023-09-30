@@ -36,7 +36,7 @@ const Banner = () => {
                   <CtaButton
                     status={showButton}
                     setStatus={setShowButton}
-                    url="/"
+                    url="/contactanos"
                   >
                     Consultar
                   </CtaButton>

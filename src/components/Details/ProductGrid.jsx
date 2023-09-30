@@ -25,20 +25,29 @@ const ProductGrid = () => {
 
   return (
     <section
-      className={`no-scrollbar md:grid grid-cols-2 md:gap-4 carousel w-full h-auto  flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll`}
+      className={` ${
+        isMobile && "no-scrollbar"
+      } md:grid grid-cols-2 md:gap-4 auto-rows-[1fr] carousel w-full h-auto  flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll md:pr-2`}
     >
       {/* //PRODUCTO CARD fallback */}
       {filteredWorks.length == 0 && selectedCategory?.category_ID && (
-        <div
-          className={`item w-auto h-auto flex flex-col justify-center items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50 `}
+        <motion.div
+          initial={{ y: 1000 }}
+          animate={{ y: 0 }}
+          exit={{ y: 0 }}
+          transition={{ duration: 0.4 }}
         >
-          <h2 className="my-4">Sin productos para mostrar</h2>
-          <p className="">
-            Pero te ayudamos a crear {selectedCategory.category_name_article}{" "}
-            {selectedCategory.category_name} que necesites
-          </p>
-          <CtaButton url="/contactanos">Dejanos tu consulta</CtaButton>
-        </div>
+          <div
+            className={`item w-auto h-full min-h-[40vh] flex flex-col justify-center items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50 `}
+          >
+            <h2 className="my-4">Sin productos para mostrar</h2>
+            <p className="">
+              Pero te ayudamos a crear {selectedCategory.category_name_article}{" "}
+              {selectedCategory.category_name} que necesites
+            </p>
+            <CtaButton url="/contactanos">Dejanos tu consulta</CtaButton>
+          </div>
+        </motion.div>
       )}
       {/* // PRODUCTO CARD */}
       {filteredWorks.map((work, i) => {
@@ -65,7 +74,9 @@ const ProductGrid = () => {
             transition={{ duration: (i + 3) / 10 }}
           >
             <div
-              className={`item w-auto h-auto flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
+              className={`item ${
+                filteredWorks.length > 1 ? "w-auto" : "w-full"
+              } h-full flex flex-col justify-start items-center border-2 border-blackish/10 p-4 rounded-xl bg-bgHighlight/50  ${
                 i == 0 ? "" : "ml-4 md:ml-0"
               }`}
             >

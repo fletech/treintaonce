@@ -15,7 +15,7 @@ export const DetailsContextProvider = ({ children }) => {
   const [customers, setCustomers] = useState(null);
   const [previousCategory, setPreviousCategory] = useState(null);
   const [drawerClosed, setDrawerClosed] = useState();
-  const [openMobileAside, setOpenMobileAside] = useState();
+  const [openMobileAside, setOpenMobileAside] = useState(false);
 
   // const [navigationFlow, setNavigationFlow] = useState({
 

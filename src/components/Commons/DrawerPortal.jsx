@@ -5,11 +5,11 @@ export function DrawerPortal({ children, ...props }) {
   const title = props.title;
   return (
     <Drawer.Portal>
-      <Drawer.Overlay className="fixed inset-0 bg-blackish/50" />
-      <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-2 md:top-10 md:left-32 lg:left-32 md:right-32 lg:right-32">
+      <Drawer.Overlay className="fixed inset-0 bg-blackish/40 backdrop-blur-sm" />
+      <Drawer.Content className="bg-bgHighlight flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-1 md:top-10 md:left-32 lg:left-32 md:right-32 lg:right-32 pt-4">
         <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1 overflow-auto">
           {isMobile && (
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-primary/40 mb-8" />
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-primary mb-8" />
           )}
           {!isMobile && (
             <div className="flex mx-auto w-full mb-8">

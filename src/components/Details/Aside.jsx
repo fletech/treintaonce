@@ -2,10 +2,10 @@ import { BiSolidRightArrow, BiRightArrow } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useDetailsContext } from "../../../context/useDetailsContext";
 import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-export const MenuOptions = ({ items, selected }) => {
+export const MenuOptions = ({ items, selected, filterHandler }) => {
   return items.map((category) => (
     <div
       key={category.category_ID}
@@ -17,6 +17,7 @@ export const MenuOptions = ({ items, selected }) => {
             ? "text-primary font-bold"
             : ""
         }`}
+        onClick={() => setTimeout(() => filterHandler(false), 150)}
       >
         <Link
           to={`/nuestros-productos/categoria/${category.category_ID}&${category.category_name}`}
@@ -40,6 +41,10 @@ export const MobileAside = ({ categories }) => {
     useDetailsContext();
   const [filtered, setFiltered] = useState(false);
 
+  useEffect(() => {
+    setOpenMobileAside(false);
+  }, []);
+
   const filterHandler = () => {
     setOpenMobileAside(!openMobileAside);
   };
@@ -54,16 +59,49 @@ export const MobileAside = ({ categories }) => {
         <div className="mr-2 text-2xl" onClick={filterHandler}>
           {!openMobileAside ? <BsFilterCircle /> : <BsFilterCircleFill />}
         </div>
-        <div>Mostrando: {selectedCategory?.category_name}</div>
+        <div>
+          <p className="">
+            Mostrando:{" "}
+            <span className="text-primary">
+              {allSelected
+                ? "Todos los resultados"
+                : selectedCategory?.category_name}
+            </span>
+          </p>
+        </div>
         <div
           className={`absolute ${
             openMobileAside ? "" : "hidden"
-          } w-full bg-bgHighlight border rounded-md h-full top-14 p-4`}
-          // TODO: ajustar el alto del contenedor de categorias
+          } w-full bg-white border-2 rounded-md h-auto top-14 p-4  shadow-2xl`}
         >
           <>
             <h3>Seleccioná</h3>
-            <MenuOptions items={categories} selected={selectedCategory} />
+            <div onClick={() => setTimeout(() => filterHandler(false), 150)}>
+              <Link to={`/nuestros-productos/categoria/todos`}>
+                <div
+                  className={`flex items-start  mt-2 ${
+                    allSelected ? "text-primary font-bold" : "text-blackish/70 "
+                  }`}
+                >
+                  {allSelected ? (
+                    <BiSolidRightArrow
+                      size={8}
+                      className="mr-2 top-2 relative"
+                    />
+                  ) : (
+                    <BiRightArrow size={8} className="mr-2 top-2 relative" />
+                  )}
+                  <p className="capitalize">
+                    {categories.length != 0 ? "Todos" : "Cargando..."}
+                  </p>
+                </div>
+              </Link>
+            </div>
+            <MenuOptions
+              items={categories}
+              selected={selectedCategory}
+              filterHandler={filterHandler}
+            />
           </>
         </div>
       </div>

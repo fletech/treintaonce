@@ -11,11 +11,11 @@ const DrawerContent = ({ work }) => {
         key={work.work_id}
         // className={`carousel-slide  w-full h-64 p-4 duration-500 `}
       >
-        <div className=" py-2 font-light rounded-md text-blackish/80 w-full lg:flex justify-evenly px-8">
-          <div className="lg:w-[40%]">
+        <div className=" py-2 font-light rounded-md text-blackish/80 w-full lg:flex justify-evenly px-2">
+          <div className="lg:w-[45%]">
             <Gallery />
           </div>
-          <div className="lg:w-[40%]">
+          <div className="lg:w-[45%]">
             <span className="font-light text">{work.work_date}</span>
             <h3
               id="family-custom"
