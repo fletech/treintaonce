@@ -38,6 +38,7 @@ const Gallery = () => {
       <div className="no-scrollbar overflow-x-scroll w-full flex justify-start items-center bg-blackish/20 px-2 ">
         <div className="flex justify-start w-full  w-max ">
           {images.map((item, i) => (
+            //TODO: remarcar imagen seleccionada
             <GalleryItem
               key={i}
               item={item.original}
