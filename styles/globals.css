@@ -110,3 +110,8 @@ input.secondary:-webkit-autofill {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+::placeholder {
+  color: red;
+  opacity: 1; /* Firefox */
+}

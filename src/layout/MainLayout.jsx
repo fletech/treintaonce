@@ -13,12 +13,10 @@ const MainLayout = () => {
       transition={{ duration: 0.5 }}
     >
       <Navbar />
-      <div className="min-h-screen flex flex-col px-8 md:px-20 lg:px-32 bg-bgMain">
-        <main className="">
-          <AnimatePresence mode="wait">
-            <Outlet />
-          </AnimatePresence>
-        </main>
+      <div className=" min-h-screen flex flex-col pt-8 px-8 md:px-20 lg:px-32 bg-bgMain">
+        <AnimatePresence mode="wait">
+          <Outlet />
+        </AnimatePresence>
 
         {/* Aquí puedes agregar un pie de página u otros elementos que desees mostrar en todas las páginas */}
       </div>

@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { content_layout } from "../../../lib/constants";
 import { Link, useLocation } from "react-router-dom";
+import { TbMenu } from "react-icons/tb";
+import { RxCross2 } from "react-icons/rx";
+import useOutsideComponent from "../../hooks/useOutsideComponent";
+import MenuOptions from "./Menu";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -8,6 +12,11 @@ const Navbar = () => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+  const wrapperRef = useRef(null);
+
+  useOutsideComponent(wrapperRef, setMenuOpen);
+
   const location = useLocation();
   const location_path = location.pathname.split("/")[1];
 
@@ -23,44 +32,29 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden md:flex items-center ">
-          {content_layout.navbar.items.map((element, i) => (
-            <Link
-              key={i}
-              to={element.url}
-              className={` mx-2 font-semibold text-blackish border-b-2 ${
-                location_path == element.url.split("/")[1]
-                  ? " border-primary"
-                  : "border-primary/0"
-              }`}
-            >
-              {element.menu}
-            </Link>
-          ))}
-
-          {/* Agrega más enlaces según tus necesidades */}
+          <MenuOptions
+            options={content_layout.navbar.items}
+            location_path={location_path}
+          />
         </div>
-        <div className="md:hidden flex items-center">
-          <button onClick={toggleMenu} className="text-white">
-            {isMenuOpen ? (
-              <i className="fas fa-times text-white"></i>
-            ) : (
-              <i className="fas fa-bars text-white"></i>
-            )}
+
+        <div className="md:hidden flex items-center w-[60px] justify-end h-[60px]">
+          <button onClick={toggleMenu} className="text-primary text-2xl">
+            {isMenuOpen ? <RxCross2 /> : <TbMenu />}
           </button>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-blue-500">
-            {/* Aquí añades los enlaces para la vista de tablet y móvil */}
-            <a href="#" className="block text-white p-2">
-              Inicio
-            </a>
-            <a href="#" className="block text-white p-2">
-              Acerca de
-            </a>
-            <a href="#" className="block text-white p-2">
-              Servicios
-            </a>
-            {/* Agrega más enlaces según tus necesidades */}
+          <div className="md:hidden absolute top-16 left-0 right-0 b-0 h-screen bg-blackish/60  pl-8 backdrop-blur-sm">
+            <div
+              ref={wrapperRef}
+              className="md:hidden bg-bgHighlight flex flex-col items-start h-auto rounded-md mt-2 p-6"
+            >
+              <MenuOptions
+                options={content_layout.navbar.items}
+                location_path={location_path}
+                setMenuOpen={setMenuOpen}
+              />
+            </div>
           </div>
         )}
       </nav>

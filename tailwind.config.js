@@ -16,6 +16,11 @@ export default {
         navbar: "rgba(240, 240, 240, 0.50) ",
       },
     },
+    fontFamily: {
+     
+      'main': ['Plus Jakarta Sans',],
+
+    }
   },
   plugins: [],
 };
