@@ -1,14 +1,21 @@
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useOutsideComponent from "../../hooks/useOutsideComponent";
+import { apiKey, baseURL } from "../../../lib/constants";
+import axios from "axios";
 
-export const CustomSelect = ({ className, categories }) => {
+export const CustomSelect = ({
+  className,
+  categories,
+  selected,
+  setSelected,
+}) => {
   const options = ["Desarrollo de Producto", "Diseño", "Materiales", "Otros"];
   const [clicked, setClicked] = useState(false);
   const [openSelect, setOpenSelect] = useState(false);
-  const [selected, setSelected] = useState(null);
+
   const wrapperRef = useRef(null);
 
   useOutsideComponent(wrapperRef, setClicked);
@@ -49,8 +56,8 @@ export const CustomSelect = ({ className, categories }) => {
         <div
           className={`absolute w-full h-auto bg-white top-12 left-0 z-100 rounded-lg border-2 p-4 shadow-xl z-40`}
         >
-          {options.map((option) => (
-            <div onClick={(e) => selectHandler(e)}>
+          {options.map((option, i) => (
+            <div onClick={(e) => selectHandler(e)} key={i}>
               <p
                 className={`${
                   option == selected ? "font-semibold text-primary" : ""
@@ -75,13 +82,12 @@ export const CustomSelect = ({ className, categories }) => {
   );
 };
 
-export const FormElement = ({ children, text, name, required }) => {
-  console.log(children.props.className);
+export const FormElement = ({ children, text, name, required, forID }) => {
   return (
     <div className="relative w-full flex flex-col w-full mb-6 ">
       <label
         id={name}
-        htmlFor=""
+        htmlFor={forID}
         className="mb-2 tracking-wider font-main font-semibold text-lg"
       >
         {text}
@@ -95,6 +101,7 @@ export const FormElement = ({ children, text, name, required }) => {
 };
 
 export default function HookForm() {
+  const [selected, setSelected] = useState(null);
   const inputClassname =
     "text-lg text-blackish font-main font-thin w-full p-2 rounded-md focus:outline-none focus:ring focus:ring-slate autofill:bg-bgHighlighted autofill:font-thin appearance-none";
   const {
@@ -102,48 +109,98 @@ export default function HookForm() {
     register,
     formState: { errors, isSubmitting },
   } = useForm();
+  const id = useId();
 
-  function onSubmit(values) {
+  const onSubmit = (data) => {
+    const url = `${baseURL}values/mensajes!?valueInputOption=USER_ENTERED`;
+    console.log(data);
+    console.log(errors);
+    console.log(selected);
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${apiKey}`,
+    //     "Access-Control-Allow-Origin": true,
+    //   },
+    // };
+    // const params = {
+    //   values: [
+    //     [
+    //       id,
+    //       new Date().getDate(),
+    //       data.name,
+    //       data.email,
+    //       data.issue,
+    //       data.message,
+    //     ],
+    //   ],
+    // };
+
+    // try {
+    //   axios.post(url, params, config).then((res) => {
+    //     console.log(res);
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
     return new Promise((resolve) => {
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify("Mensaje enviado"));
         resolve();
       }, 3000);
     });
-  }
+  };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center h-full"
     >
-      <FormElement text={"Nombre"} name={"name"} required>
+      <FormElement text={"Nombre"} name={"name"} forID={"name"} required>
         <input
+          id="name"
           className={inputClassname}
           name="name"
           type="text"
           placeholder="Tu nombre "
+          {...register("name", { required: true })}
         />
       </FormElement>
-      <FormElement text={"Email"} name={"email"} required>
+      <FormElement text={"Email"} name={"email"} forID={"email"} required>
         <input
+          id="email"
           className={inputClassname}
           name="email"
           type="email"
           placeholder="ej: hola@treintaonce.ar"
+          {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
         />
       </FormElement>
       <FormElement text={"Asunto"} name={"issue"}>
-        <CustomSelect className={inputClassname} />
-      </FormElement>
-      <FormElement text={"Mensaje"} name={"field"} required>
-        <input
+        <CustomSelect
           className={inputClassname}
-          name="field"
-          type="textarea"
-          placeholder="Escribí tu mensaje acá..."
+          selected={selected}
+          setSelected={setSelected}
         />
       </FormElement>
+      <FormElement text={"Mensaje"} name={"message"} forID={"message"} required>
+        <textarea
+          id="message"
+          className={inputClassname}
+          name="message"
+          type="textarea"
+          placeholder="Escribí tu mensaje acá..."
+          {...register("message", { required: true })}
+        />
+      </FormElement>
+      <button
+        type="submit"
+        className="bg-primary text-white font-main font-semibold text-lg rounded-md w-full py-2 px-4 mt-4"
+        disabled={isSubmitting}
+      >
+        Enviar
+      </button>
     </form>
   );
 }

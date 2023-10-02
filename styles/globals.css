@@ -63,6 +63,10 @@ li {
 * {
   box-sizing: border-box;
 }
+::placeholder {
+  color: red;
+  opacity: 1; /* Firefox */
+}
 
 input.primary:-webkit-autofill {
   background-clip: text;
@@ -111,7 +115,4 @@ input.secondary:-webkit-autofill {
   background: #555;
 }
 
-::placeholder {
-  color: red;
-  opacity: 1; /* Firefox */
-}
+

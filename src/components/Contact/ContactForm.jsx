@@ -4,7 +4,7 @@ import HookForm from "./HookForm";
 const ContactForm = () => {
   // state para renderizar mensaje de agradecimiento si ya se envió el mensaje, o el formulario
   return (
-    <main className="w-full h-[76vh] flex lg:flex-row flex-col  lg:gap-0 lg:divide-x  divide-slate-200">
+    <main className="w-full min-h-[76vh] flex lg:flex-row flex-col  lg:gap-0 lg:divide-x  divide-slate-200">
       {/* <section className=" lg:w-1/2  lg:pr-8 lg:py-8 flex flex-col items-center justify-center gap-10 mb-10"> */}
       <section className=" lg:w-1/2  lg:pr-8 lg:py-8 flex flex-col items-start justify-center gap-2 mb-10">
         {/* <span
@@ -27,7 +27,7 @@ const ContactForm = () => {
         </p>
       </section>
 
-      <section className="lg:w-1/2 lg:pl-8 lg:py-8 flex flex-col pt-10">
+      <section className="lg:w-1/2 lg:pl-8 lg:py-8 flex flex-col pt-2">
         <HookForm />
       </section>
     </main>

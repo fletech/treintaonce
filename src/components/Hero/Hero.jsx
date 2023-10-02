@@ -24,7 +24,7 @@ const Hero = ({ works }) => {
   }, [works, first, second]);
 
   return (
-    <section className="pb-20 pt-[12vh] h-[70vh] md:h-[92vh]">
+    <section className="pb-20 mt-16 md:mt-24 h-[70vh] md:h-[92vh]">
       <div className="w-full flex justify-between items-center mb-6">
         <Subtitle text={"Nuestra producción"} group={true} />
         <CtaButton

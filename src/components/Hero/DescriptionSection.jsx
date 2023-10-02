@@ -12,7 +12,7 @@ const DescriptionSection = () => {
   const content = finderSpans(content_layout.heroDescription.content);
 
   return (
-    <section className="mb-10 mt-16 ">
+    <section className="mb-10 mt-16 md:mt-24 ">
       <Subtitle text={"En qué nos especializamos?"} />
       <p
         className="tracking-wider"

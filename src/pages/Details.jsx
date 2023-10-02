@@ -175,7 +175,7 @@ const Details = () => {
         exit={{ opacity: 0, x: -100 }}
         transition={{ duration: 0.7 }}
       >
-        <main className={`mt-24 w-full h-auto md:min-h-[80vh]`}>
+        <main className={`mt-16 md:mt-24 w-full h-auto md:min-h-[80vh]`}>
           <Subtitle text={"nuestra vidriera virtual"} />
           <div
             className={`flex relative ${
