@@ -1,18 +1,30 @@
-import { useForm } from "react-hook-form";
-import React, { useState, useEffect, useRef, useId } from "react";
+import { useForm, useController } from "react-hook-form";
+import React, { useState, useEffect, useRef } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useOutsideComponent from "../../hooks/useOutsideComponent";
-import { apiKey, baseURL } from "../../../lib/constants";
+import { v4 as uuid } from "uuid";
+
 import axios from "axios";
+import { apiKey, baseURL } from "../../../lib/constants";
+import { getFormattedDate } from "../../../lib/functions";
 
 export const CustomSelect = ({
   className,
   categories,
   selected,
   setSelected,
+  handleSelectChange,
+  value,
 }) => {
-  const options = ["Desarrollo de Producto", "Diseño", "Materiales", "Otros"];
+  const options = [
+    "Desarrollo de Producto",
+    "Diseño",
+    "Materiales",
+    "Presupuesto",
+    "Consultas generales",
+    "Otros",
+  ];
   const [clicked, setClicked] = useState(false);
   const [openSelect, setOpenSelect] = useState(false);
 
@@ -23,11 +35,13 @@ export const CustomSelect = ({
   const selectHandler = (e, cb) => {
     setSelected(e.target.textContent);
     setClicked(false);
+    handleSelectChange(e.target.textContent);
   };
 
   const cancelHandler = () => {
     setClicked(true);
     setSelected(null);
+    handleSelectChange(null);
   };
   useEffect(() => {
     clicked ? setOpenSelect(true) : setOpenSelect(false);
@@ -36,7 +50,7 @@ export const CustomSelect = ({
   return (
     <div
       ref={wrapperRef}
-      className={`${className} flex justify-between items-center cursor-pointer h-full pr-4 relative ${
+      className={`${className} flex justify-between items-center cursor-pointer  h-full pr-4 relative ${
         openSelect && "pointer-events-auto"
       } ${clicked && "ring ring-slate"}`}
       onClick={() => setClicked(!clicked)}
@@ -45,22 +59,23 @@ export const CustomSelect = ({
         {selected ? selected : "Seleccioná el motivo..."}
       </p>
 
-      {/* {clicked && (
-        <p className="text-gray-400">
-          Escribí acá o seleccioná de la siguiente lista...
-        </p>
-      )} */}
       <BiSolidDownArrow className="text-primary" />
 
       {openSelect && (
         <div
-          className={`absolute w-full h-auto bg-white top-12 left-0 z-100 rounded-lg border-2 p-4 shadow-xl z-40`}
+          className={`absolute w-full h-auto bg-white top-12 left-0 z-100 rounded-lg border-2 py-4 shadow-xl z-40`}
         >
           {options.map((option, i) => (
-            <div onClick={(e) => selectHandler(e)} key={i}>
+            <div
+              onClick={(e) => selectHandler(e)}
+              key={i}
+              className={`px-4 hover:bg-primaryOpacity hover:cursor-pointer ${
+                option == selected ? "font-semibold " : ""
+              }`}
+            >
               <p
                 className={`${
-                  option == selected ? "font-semibold text-primary" : ""
+                  option == selected ? "font-semibold text-primary " : ""
                 }`}
               >
                 {option}
@@ -69,7 +84,7 @@ export const CustomSelect = ({
           ))}
           {selected && (
             <div
-              className="inline-block border border-primary rounded-full bg-primary hover:font-normal text-white my-2 px-2 pb-[3px] cursor-pointer"
+              className="inline-block border border-warning rounded-full bg-warning hover:font-normal text-white mt-4  ml-4 px-2 pb-[3px] cursor-pointer"
               onClick={() => cancelHandler()}
             >
               <RiDeleteBin6Fill className="inline-block mr-[3px] text-sm mb-[2px]" />
@@ -101,55 +116,46 @@ export const FormElement = ({ children, text, name, required, forID }) => {
 };
 
 export default function HookForm() {
-  const [selected, setSelected] = useState(null);
   const inputClassname =
     "text-lg text-blackish font-main font-thin w-full p-2 rounded-md focus:outline-none focus:ring focus:ring-slate autofill:bg-bgHighlighted autofill:font-thin appearance-none";
+
+  const [selected, setSelected] = useState(null);
+
   const {
     handleSubmit,
+    control,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
-  const id = useId();
+  const { field } = useController({ name: "issue", control });
+  const id = uuid();
 
-  const onSubmit = (data) => {
-    const url = `${baseURL}values/mensajes!?valueInputOption=USER_ENTERED`;
+  const handleSelectChange = (option) => {
+    field.onChange(option);
+  };
+
+  const onSubmit = async (data) => {
     console.log(data);
-    console.log(errors);
-    console.log(selected);
+    const url = `${import.meta.env.VITE_GOOGLE_SCRIPT}`;
 
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${apiKey}`,
-    //     "Access-Control-Allow-Origin": true,
-    //   },
-    // };
-    // const params = {
-    //   values: [
-    //     [
-    //       id,
-    //       new Date().getDate(),
-    //       data.name,
-    //       data.email,
-    //       data.issue,
-    //       data.message,
-    //     ],
-    //   ],
-    // };
+    const currentDate = getFormattedDate();
 
-    // try {
-    //   axios.post(url, params, config).then((res) => {
-    //     console.log(res);
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    const params = {
+      ID: id,
+      date: currentDate,
+      name: data.name,
+      email: data.email,
+      issue: data.issue,
+      message: data.message,
+      status: false,
+    };
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify("Mensaje enviado"));
-        resolve();
-      }, 3000);
-    });
+    try {
+      const RESPONSE = await axios.post(url, JSON.stringify(params));
+      console.log(RESPONSE);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -179,9 +185,11 @@ export default function HookForm() {
       </FormElement>
       <FormElement text={"Asunto"} name={"issue"}>
         <CustomSelect
+          value={field.value}
           className={inputClassname}
           selected={selected}
           setSelected={setSelected}
+          handleSelectChange={handleSelectChange}
         />
       </FormElement>
       <FormElement text={"Mensaje"} name={"message"} forID={"message"} required>
@@ -204,3 +212,41 @@ export default function HookForm() {
     </form>
   );
 }
+
+// const onSubmit = async (data) => {
+//     const url = `${import.meta.env.VITE_SHEETDB_URL}`;
+//     // console.log(data);
+//     // console.log(errors);
+//     // console.log(selected);
+
+//     const config = {
+//       mode: "cors",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "X-Api-Key":`${import.meta.env.VITE_SHEETDB_API_KEY}`,
+//     }}
+
+//     const params = {
+//           ID:id,
+//           date:new Date().getDate(),
+//           name:data.name,
+//           email:data.email,
+//           issue:selected,
+//           message:data.message,
+//     }
+//     const body = JSON.stringify(params);
+
+//     try {
+//       const RESPONSE = await axios.post(url, body, config)
+//       console.log(RESPONSE);
+//     } catch (err) {
+//       console.log(err);
+//     }
+
+//     // return new Promise((resolve) => {
+//     //   setTimeout(() => {
+//     //     alert(JSON.stringify("Mensaje enviado"));
+//     //     resolve();
+//     //   }, 3000);
+//     // });
+//   };

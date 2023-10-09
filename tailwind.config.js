@@ -9,18 +9,17 @@ export default {
         bgHighlight: "#faf9f6",
         // bgHighlight: "#f2f0e9",
         blackish: "#18181B",
-        primary: "#FE4351",
-        // primary: "#F74848",
-
+        primary: "#FFA000",
+        primaryOpacity: "#FFA00019",
+        // primary: "#FE4351",
+        warning: "#FE4351",
         secondary: "#86EFAC",
         navbar: "rgba(240, 240, 240, 0.50) ",
       },
     },
     fontFamily: {
-     
-      'main': ['Plus Jakarta Sans',],
-
-    }
+      main: ["Plus Jakarta Sans"],
+    },
   },
   plugins: [],
 };
