@@ -32,7 +32,7 @@ const Hero = ({ works }) => {
           primary={true}
           group={true}
         >
-          Ver todos los productos
+          {isMobile ? "Ver todos" : "Ver todos los productos"}
         </CtaButton>
       </div>
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 h-full`}>

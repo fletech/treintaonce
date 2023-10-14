@@ -21,14 +21,14 @@ const Banner = () => {
     return icons[`${key}`];
   };
   return (
-    <section className="mt-16 overflow-x-auto">
+    <section className="mt-16">
       <Subtitle text="Cómo trabajamos?" />
-      <div className="flex w-full mt-8  items-stretch ">
+      <div className="flex w-full mt-8  items-stretch overflow-x-auto">
         {content_layout.banner.cards.map((card, i) => (
-          <div className="flex w-full " key={i}>
-            <div className="relative card w-full flex flex-col items-center bg-bgHighlight  text-blackish font-light tracking-wider p-3 rounded-lg shadow-sm h-auto">
+          <div className="flex w-full min-w-[200px] " key={i}>
+            <div className="relative card w-full flex flex-col items-center bg-bgHighlight  text-blackish font-light tracking-wider p-3 rounded-lg shadow-sm h-auto border-2 border-slate-100">
               <div className="my-2">
-                {getIcon(i, { tw: "text-2xl text-primary" })}
+                {getIcon(i, { tw: "text-2xl text-secondary" })}
               </div>
               <div className="w-full h-full flex flex-col justify-center items-center">
                 <p className="text-sm text-center ">{card.text}</p>
@@ -45,8 +45,8 @@ const Banner = () => {
             </div>
             {content_layout.banner.cards.length != i + 1 && (
               <div className="flex w-1/4 h-auto items-center justify-center">
-                <BiSolidRightArrow className="text-primary/30" />
-                <BiSolidRightArrow className="text-primary/40" />
+                <BiSolidRightArrow className="text-secondary/40" />
+                <BiSolidRightArrow className="text-primary/50" />
               </div>
             )}
           </div>
