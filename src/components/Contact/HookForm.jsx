@@ -186,6 +186,7 @@ const HookForm = () => {
       progress: undefined,
     };
     try {
+      console.log("sending...");
       const RESPONSE = await axios.post(url, JSON.stringify(params));
       console.log(RESPONSE);
       reset();
