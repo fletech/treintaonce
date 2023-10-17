@@ -12,6 +12,7 @@ import { apiKey, baseURL } from "../../../lib/constants";
 import { getFormattedDate } from "../../../lib/functions";
 import { FaSpinner } from "react-icons/fa";
 import { isMobile } from "react-device-detect";
+import { ErrorMessage } from "@hookform/error-message";
 
 export const CustomSelect = ({
   className,
@@ -69,7 +70,7 @@ export const CustomSelect = ({
       <input
         type="text"
         className={`
-        font-thin outline-none w-full h-full text-lg py-[1px]
+        font-thin outline-none w-full h-full text-lg py-[1px] cursor-pointer 
         ${selected ? "text-blackish" : "text-gray-400 "} ${
           clicked ? "bg-white" : "bg-transparent"
         }`}
@@ -118,7 +119,15 @@ export const CustomSelect = ({
   );
 };
 
-export const FormElement = ({ children, text, name, required, forID }) => {
+export const FormElement = ({
+  children,
+  text,
+  name,
+  required,
+  forID,
+  error,
+}) => {
+  console.log(error);
   return (
     <div className="relative w-full flex flex-col w-full mb-6 ">
       <label
@@ -132,6 +141,11 @@ export const FormElement = ({ children, text, name, required, forID }) => {
       <div className="w-full border-[1px] rounded-md  caret-primary min-h-[32px] flex items-center">
         {children}
       </div>
+      {error?.email && (
+        <div>
+          <p>Debes completar este campo</p>
+        </div>
+      )}
     </div>
   );
 };
@@ -148,7 +162,7 @@ const HookForm = () => {
     control,
     register,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm();
   const { field } = useController({ name: "issue", control });
   const id = uuid();
@@ -217,6 +231,7 @@ const HookForm = () => {
           type="text"
           placeholder="Tu nombre "
           {...register("name", { required: true })}
+          error={errors}
         />
       </FormElement>
       <FormElement text={"Email"} name={"email"} forID={"email"} required>
@@ -227,6 +242,7 @@ const HookForm = () => {
           type="email"
           placeholder="ej: hola@treintaonce.ar"
           {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+          error={errors}
           // onKeyDown={(e) => handleEmailKeyDown(e)}
         />
       </FormElement>
@@ -239,6 +255,7 @@ const HookForm = () => {
           clicked={clicked}
           setClicked={setClicked}
           handleSelectChange={handleSelectChange}
+          error={errors}
         />
       </FormElement>
       <FormElement text={"Mensaje"} name={"message"} required>
@@ -248,12 +265,13 @@ const HookForm = () => {
           name="message"
           placeholder="Tu mensaje"
           {...register("message", { required: true })}
+          error={errors}
         />
       </FormElement>
       <button
         type="submit"
         className="bg-primary text-white font-main font-semibold text-lg rounded-md py-2 px-6 mt-6 disabled:opacity-50 w-full"
-        disabled={isSubmitting}
+        disabled={!isDirty && !isValid}
       >
         {isSubmitting ? (
           <FaSpinner className="animate-spin inline-block mr-2" />
