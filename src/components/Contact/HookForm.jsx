@@ -127,7 +127,6 @@ export const FormElement = ({
   forID,
   error,
 }) => {
-  console.log(error);
   return (
     <div className="relative w-full flex flex-col w-full mb-6 ">
       <label
@@ -190,7 +189,7 @@ const HookForm = () => {
       message: data.message,
       status: false,
     };
-    const toasOptions = {
+    const toastOptions = {
       position: isMobile ? "top-center" : "top-right",
       autoClose: 3000,
       hideProgressBar: true,
@@ -208,12 +207,12 @@ const HookForm = () => {
       toast.success(
         "Recibimos tu mensaje 🙂. A más tardar mañana, te respondemos. ",
         {
-          ...toasOptions,
+          ...toastOptions,
         }
       );
     } catch (err) {
       toast.error("No pudimos recibir tu mensaje 👎🏼 Intentá nuevamente", {
-        ...toasOptions,
+        ...toastOptions,
       });
     }
   };
