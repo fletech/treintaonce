@@ -10,6 +10,7 @@ import Loading from "../components/Hero/HeroLoading";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDetailsContext } from "../../context/useDetailsContext";
+import ContactSection from "../components/Hero/ContactSection";
 
 const Home = () => {
   const location = useLocation();
@@ -57,6 +58,7 @@ const Home = () => {
         <Hero works={works.data} />
         <Banner />
         <DescriptionSection />
+        <ContactSection />
       </motion.div>
     )
   );

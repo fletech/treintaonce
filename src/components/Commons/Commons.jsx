@@ -1,9 +1,11 @@
-const Subtitle = ({ text, group }) => {
+import CtaButton from "./CtaButton";
+
+const Subtitle = ({ text, group, ctaColumn }) => {
   return (
     <h2
       className={`font-bold text-2xl uppercase text-primary tracking-wider w-fit ${
         !group && "mb-4"
-      }`}
+      } ${ctaColumn && "mb-6"}`}
     >
       {text}
     </h2>
