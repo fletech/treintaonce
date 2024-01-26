@@ -8,7 +8,7 @@ const MemberCard = ({ name, position, image, imagePosition }) => {
       <img
         src={image}
         alt={name}
-        className={`w-32 h-32 rounded-full mb-4 object-cover ${imagePosition}`}
+        className={`w-40 h-40 rounded-full mb-4 object-cover ${imagePosition}`}
       />
       <div className="flex flex-col justify-center items-center lg:min-w-auto min-w-[200px] font-blackish">
         <h3 className="text-xl font-bold">{name}</h3>

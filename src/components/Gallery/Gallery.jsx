@@ -38,7 +38,7 @@ const Gallery = () => {
         <img src={images[imageIndex].original} />
       </div>
       <div className="no-scrollbar overflow-x-scroll w-full flex justify-start items-center px-2 ">
-        <div className="flex justify-start w-full  w-max ">
+        <div className="flex justify-start w-full ">
           {images.map((item, i) => (
             //TODO: remarcar imagen seleccionada
             <GalleryItem

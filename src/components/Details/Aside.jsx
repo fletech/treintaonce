@@ -4,6 +4,7 @@ import { useDetailsContext } from "../../../context/useDetailsContext";
 import { BsFilterCircleFill, BsFilterCircle } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ImCross } from "react-icons/im";
 
 export const MenuOptions = ({ items, selected, filterHandler }) => {
   return items.map((category) => (
@@ -59,14 +60,25 @@ export const MobileAside = ({ categories }) => {
         <div className="mr-2 text-2xl" onClick={filterHandler}>
           {!openMobileAside ? <BsFilterCircle /> : <BsFilterCircleFill />}
         </div>
-        <div>
-          <p className="">
-            Mostrando:{" "}
-            <span className="text-primary">
+        <div className="flex items-center">
+          <p className="mr-4"> Mostrando: </p>
+          <p
+            className={
+              allSelected
+                ? "text-primary"
+                : "bg-primary rounded-full px-4 py-2 flex items-center"
+            }
+          >
+            <span className={allSelected ? "" : " text-white capitalize  mr-2"}>
               {allSelected
                 ? "Todos los resultados"
                 : selectedCategory?.category_name}
             </span>
+            {!allSelected && (
+              <Link to={`/nuestros-productos/categoria/todos`}>
+                <ImCross size={12} className="text-white" />
+              </Link>
+            )}
           </p>
         </div>
         <div
