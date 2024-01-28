@@ -3,10 +3,13 @@ import { useDetailsContext } from "../../../context/useDetailsContext";
 
 const GalleryItem = ({ item, index, setImageIndex, imageIndex }) => {
   return (
-    <div onClick={() => setImageIndex(index)} className="w-[100px] h-auto m-2">
+    <div
+      onClick={() => setImageIndex(index)}
+      className="w-[100px] h-auto m-2 snap-x"
+    >
       <img
         src={item}
-        className={` w-[100px] h-[100px] border p-2 rounded-md  hover:border-2 cursor-pointer transition-colors bg-white ${
+        className={` w-[80px] h-[80px] border p-2 rounded-md  hover:border-2 cursor-pointer transition-colors bg-white ${
           index == imageIndex && "border-primary"
         }`}
       />
@@ -33,12 +36,15 @@ const Gallery = () => {
   const images = imagesHandler();
 
   return (
-    <div className=" flex flex-col justify-center items-center mb-10 border-2 rounded-md overflow-hidden bg-white">
-      <div className="main-image w-[300px] h-[300px] mb-10 ">
-        <img src={images[imageIndex].original} />
+    <>
+      <div className=" flex flex-col justify-center items-center border-2 rounded-md bg-white py-10">
+        <div className="main-image w-[300px] h-[300px]  ">
+          <img src={images[imageIndex].original} />
+        </div>
       </div>
-      <div className="no-scrollbar overflow-x-scroll w-full flex justify-start items-center px-2 ">
-        <div className="flex justify-start w-full ">
+
+      <div className="  grid  no-scrollbar  px-2 overflow-scroll my-10  ">
+        <div className=" flex  w-auto snap-x">
           {images.map((item, i) => (
             //TODO: remarcar imagen seleccionada
             <GalleryItem
@@ -51,7 +57,7 @@ const Gallery = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Gallery;

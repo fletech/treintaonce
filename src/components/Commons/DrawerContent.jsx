@@ -1,4 +1,5 @@
 import Gallery from "../Gallery/Gallery";
+import ContactSection from "../Hero/ContactSection";
 import CtaButton from "./CtaButton";
 
 const DrawerContent = ({ work }) => {
@@ -32,16 +33,33 @@ const DrawerContent = ({ work }) => {
                     return <li key={i}>{item}</li>;
                 })}
             </ul>
-            <h3>Tenés algo similar en mente?</h3>
-            <CtaButton
-              url={`/contactanos/${work.work_title}`}
-              primary={true}
-              work={work}
-            >
-              Contactanos
-            </CtaButton>
+            <div className="border-b-2 mt-10"></div>
+            <div className="py-8 rounded-md">
+              <p className="font-light mr-10 text-blackish">
+                Tenés algo similar en mente?
+              </p>
+              <CtaButton
+                url={`/contactanos/${work.work_title}`}
+                primary
+                work={work}
+              >
+                Contactanos
+              </CtaButton>
+            </div>
           </div>
         </div>
+        {/* <div className="bg-gray-100 p-8 rounded-md mx-2">
+          <p className="font-semibold mr-10 text-blackish">
+            Tenés algo similar en mente?
+          </p>
+          <CtaButton
+            url={`/contactanos/${work.work_title}`}
+            primary
+            work={work}
+          >
+            Contactanos
+          </CtaButton>
+        </div> */}
       </div>
     </div>
   );

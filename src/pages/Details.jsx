@@ -177,7 +177,7 @@ const Details = () => {
         initial={{ opacity: 0.5, x: 0 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -100 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.5 }}
       >
         <main className={`mt-16 md:mt-24 w-full h-auto md:min-h-[80vh]`}>
           <Subtitle text={"nuestra vidriera virtual"} />

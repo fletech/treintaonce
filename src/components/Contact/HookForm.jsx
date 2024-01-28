@@ -63,6 +63,7 @@ export const CustomSelect = ({
 
   useEffect(() => {
     if (referenceProduct) setSelected(referenceProduct);
+    handleSelectChange(referenceProduct);
   }, []);
 
   useEffect(() => {
@@ -185,6 +186,7 @@ const HookForm = () => {
 
   const handleSelectChange = (option) => {
     field.onChange(option);
+    console.log(option);
   };
 
   // ...

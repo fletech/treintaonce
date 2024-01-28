@@ -5,7 +5,9 @@ import { RxDotFilled } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
 const Carousel = ({ works }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(
+    Math.floor(Math.random() * works.length)
+  );
 
   const prevSlide = () => {
     setCurrentIndex((prevIndex) => {

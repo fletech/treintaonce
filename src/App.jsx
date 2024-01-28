@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Routes } from "./routes";
 import { ToastContainer } from "react-toastify";
 import { DetailsContextProvider } from "../context/DetailsContextProvider";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +19,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <DetailsContextProvider>
+      <ScrollToTop />
       <QueryClientProvider client={queryClient}>
         {/* <MainLayout>
         <Homepage />

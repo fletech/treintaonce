@@ -10,7 +10,7 @@ export function DrawerPortal({ children, ...props }) {
     <Drawer.Portal>
       <Drawer.Overlay className="fixed inset-0 bg-blackish/40 backdrop-blur-sm" />
       <Drawer.Content className="bg-bgHighlight flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-2 right-2 top-1 md:top-10 md:left-32 lg:left-32 md:right-32 lg:right-32 pt-4">
-        <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1 overflow-auto">
+        <div className="p-4 bg-bgHighlight rounded-t-[10px] flex-1 overflow-y-scroll">
           {isMobile && (
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-primary mb-8" />
           )}
