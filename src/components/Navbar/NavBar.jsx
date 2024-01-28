@@ -5,8 +5,11 @@ import { TbMenu } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
 import useOutsideComponent from "../../hooks/useOutsideComponent";
 import MenuOptions from "./Menu";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Navbar = () => {
+  let size = useWindowSize();
+  let isMobile = size.width < 768;
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -38,12 +41,16 @@ const Navbar = () => {
           />
         </div>
 
-        <div className="md:hidden flex items-center w-[60px] justify-end h-[60px]">
+        <div
+          className={`${
+            isMobile ? "flex" : "hidden"
+          } items-center w-[60px] justify-end h-[60px]`}
+        >
           <button onClick={toggleMenu} className="text-primary text-2xl">
             {isMenuOpen ? <RxCross2 /> : <TbMenu />}
           </button>
         </div>
-        {isMenuOpen && (
+        {isMenuOpen && isMobile && (
           <div className="md:hidden absolute top-16 left-0 right-0 b-0 h-screen bg-blackish/60  pl-8 backdrop-blur-sm">
             <div
               ref={wrapperRef}

@@ -1,7 +1,10 @@
-import { isMobile } from "react-device-detect";
+import { useWindowSize } from "@uidotdev/usehooks";
+
 import { Drawer } from "vaul";
 
 export function DrawerPortal({ children, ...props }) {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
   const title = props.title;
   return (
     <Drawer.Portal>

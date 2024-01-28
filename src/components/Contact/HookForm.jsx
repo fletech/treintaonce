@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import useOutsideComponent from "../../hooks/useOutsideComponent";
+import { useDetailsContext } from "../../../context/useDetailsContext";
+
 import { v4 as uuid } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,8 +13,10 @@ import axios from "axios";
 import { apiKey, baseURL } from "../../../lib/constants";
 import { getFormattedDate } from "../../../lib/functions";
 import { FaSpinner } from "react-icons/fa";
-import { isMobile } from "react-device-detect";
+
 import { ErrorMessage } from "@hookform/error-message";
+import { useParams } from "react-router-dom";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export const CustomSelect = ({
   className,
@@ -22,7 +26,9 @@ export const CustomSelect = ({
   setSelected,
   handleSelectChange,
 }) => {
-  const options = [
+  const params = useParams();
+  const referenceProduct = params.id ? `Referencia: ${params.id}` : null;
+  let options = [
     "Desarrollo de Producto",
     "Diseño",
     "Materiales",
@@ -30,6 +36,10 @@ export const CustomSelect = ({
     "Consultas generales",
     "Otros",
   ];
+
+  if (referenceProduct) {
+    options = [...options, referenceProduct];
+  }
 
   const [openSelect, setOpenSelect] = useState(false);
 
@@ -50,6 +60,10 @@ export const CustomSelect = ({
     setClicked(false);
     setOpenSelect(false);
   };
+
+  useEffect(() => {
+    if (referenceProduct) setSelected(referenceProduct);
+  }, []);
 
   useEffect(() => {
     clicked ? setOpenSelect(true) : setOpenSelect(false);
@@ -128,7 +142,7 @@ export const FormElement = ({
   error,
 }) => {
   return (
-    <div className="relative w-full flex flex-col w-full mb-6 ">
+    <div className="relative w-full flex flex-col mb-6 ">
       <label
         id={name}
         htmlFor={forID}
@@ -150,6 +164,9 @@ export const FormElement = ({
 };
 
 const HookForm = () => {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
+  const { selectedProduct } = useDetailsContext();
   const inputClassname =
     "text-lg text-blackish font-main font-thin w-full p-2 rounded-md focus:outline-none focus:ring focus:ring-slate autofill:bg-bgHighlighted autofill:font-thin appearance-none";
 
@@ -180,7 +197,7 @@ const HookForm = () => {
 
     const currentDate = getFormattedDate();
 
-    const params = {
+    const data_form = {
       ID: id,
       date: currentDate,
       name: data.name,
@@ -200,7 +217,7 @@ const HookForm = () => {
     };
     try {
       console.log("sending...");
-      const RESPONSE = await axios.post(url, JSON.stringify(params));
+      const RESPONSE = await axios.post(url, JSON.stringify(data_form));
       console.log(RESPONSE);
       reset();
       setSelected(null);

@@ -1,4 +1,5 @@
 import Gallery from "../Gallery/Gallery";
+import CtaButton from "./CtaButton";
 
 const DrawerContent = ({ work }) => {
   const text = work.work_long_description;
@@ -31,6 +32,14 @@ const DrawerContent = ({ work }) => {
                     return <li key={i}>{item}</li>;
                 })}
             </ul>
+            <h3>Tenés algo similar en mente?</h3>
+            <CtaButton
+              url={`/contactanos/${work.work_title}`}
+              primary={true}
+              work={work}
+            >
+              Contactanos
+            </CtaButton>
           </div>
         </div>
       </div>

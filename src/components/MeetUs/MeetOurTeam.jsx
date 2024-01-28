@@ -4,11 +4,11 @@ import { content_layout } from "../../../lib/constants";
 
 const MemberCard = ({ name, position, image, imagePosition }) => {
   return (
-    <div className="grid grid-cols-3 lg:flex lg:flex-col items-center justify-evenly w-auto p-4 bg-white rounded-xl shadow-md border-[1px]">
+    <div className="grid grid-cols-3 lg:flex lg:flex-col items-center justify-evenly w-auto p-4 bg-white rounded-xl shadow-md border-[1px] group hover:scale-[110%] transition-all">
       <img
         src={image}
         alt={name}
-        className={`w-40 h-40 rounded-full mb-4 object-cover ${imagePosition}`}
+        className={`w-40 h-40 rounded-full group-hover:rounded-none mb-4 object-cover ${imagePosition} transition-all ease-in-out delay-1000`}
       />
       <div className="flex flex-col justify-center items-center lg:min-w-auto min-w-[200px] font-blackish">
         <h3 className="text-xl font-bold">{name}</h3>

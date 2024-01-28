@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import { isMobile } from "react-device-detect";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 import { useDetailsContext } from "../../../context/useDetailsContext";
 
@@ -15,13 +15,12 @@ const avatar = () => {
 };
 
 const ProductGrid = () => {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
+
   const { customers, filteredWorks, selectedCategory } = useDetailsContext();
 
   const elementRef = useRef();
-
-  //console.log(selectedCategory);
-  //console.log(selectedProduct);
-  //console.log(location);
 
   return (
     <section
@@ -45,7 +44,9 @@ const ProductGrid = () => {
               Pero te ayudamos a crear {selectedCategory.category_name_article}{" "}
               {selectedCategory.category_name} que necesites
             </p>
-            <CtaButton url="/contactanos">Dejanos tu consulta</CtaButton>
+            <CtaButton url={`/contactanos/${selectedCategory.category_name}`}>
+              Dejanos tu consulta
+            </CtaButton>
           </div>
         </motion.div>
       )}

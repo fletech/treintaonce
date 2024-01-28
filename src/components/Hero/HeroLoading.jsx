@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Subtitle } from "../Commons/Commons";
-import { isMobile } from "react-device-detect";
+
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Loading = () => {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
   return (
     <motion.div
       initial={{ opacity: 0.8, scaleX: [1.5, 0.9, 1.5], scaleY: 1.2 }}

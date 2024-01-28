@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState } from "react";
 import Carousel from "../Carousel/Carousel";
 import { Subtitle } from "../Commons/Commons";
 import WorkBox from "./WorkBox";
-import { isMobile } from "react-device-detect";
+
 import { getRandomNumbers } from "../../utils/getRandomNumbers";
 import CtaButton from "../Commons/CtaButton";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const Hero = ({ works }) => {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
   const [first, second] = useMemo(() => getRandomNumbers(works), [works]);
 
   const [worksFiltered, setWorksFiltered] = useState();

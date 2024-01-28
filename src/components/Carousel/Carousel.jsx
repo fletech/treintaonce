@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { isMobile } from "react-device-detect";
 
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";

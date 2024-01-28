@@ -71,11 +71,33 @@ export const routes = [
         ],
       },
       {
-        name: "contact",
+        name: "contactanos",
         title: "Contactanos",
-        component: Contact,
-        path: "/contactanos",
+        hasSiderLink: true,
+
+        routes: [
+          {
+            name: "contactanos",
+            title: "Nuevo mensaje con referencia",
+            hasSiderLink: true,
+            component: Contact,
+            path: "contactanos/:id",
+          },
+          {
+            name: "contactanos",
+            title: "Nuevo mensaje",
+            hasSiderLink: true,
+            component: Contact,
+            path: "/contactanos",
+          },
+        ],
       },
+      // {
+      //   name: "contactanos",
+      //   title: "Contactanos",
+      //   component: Contact,
+      //   path: "/contactanos&product=:id",
+      // },
       {
         name: "about-us",
         title: "Conocenos",

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { isMobile } from "react-device-detect";
+
+import { useWindowSize } from "@uidotdev/usehooks";
+
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -17,6 +19,8 @@ import { DesktopAside, MobileAside } from "../components/Details/Aside";
 import ProductGrid from "../components/Details/ProductGrid";
 
 const Details = () => {
+  const size = useWindowSize();
+  const isMobile = size.width < 800;
   const params = useParams();
   const param_id = params.id.split("&")[0];
   const location = useLocation();

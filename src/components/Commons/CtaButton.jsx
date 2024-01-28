@@ -14,7 +14,7 @@ const CtaButton = forwardRef(function CtaButton({ children, ...props }, ref) {
         //un componente global
         className={`${
           openMobileAside ? "" : "relative"
-        } group  w-full flex justify-center items-center border-2 px-6 py-2  rounded-full hover:font-normal hover:bg-secondary  transition-colors ${
+        } group  w-max flex justify-center items-center border-2 px-6 py-2  rounded-full hover:font-normal hover:bg-secondary  transition-colors ${
           primary ? "border-secondary" : ""
         } ${!group && "mt-4"}`}
         onClick={() => setSelectedProduct(work)}

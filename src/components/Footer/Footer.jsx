@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-bgHighlight py-8 grid place-items-center">
+    <footer className="bg-bgHighlight py-8 sm:mt-12 grid place-items-center">
       <p className="text-lg font-semibold tracking-widest">
         treinta<span className="text-primary ml-[1px] tracking-wide">ON</span> ®
       </p>

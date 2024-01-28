@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 const MenuOptions = ({ options, location_path, setMenuOpen }) => {
+  const size = useWindowSize();
+  const isMobile = size.width < 768;
   return options.map((element, i) => (
-    <div onClick={() => setMenuOpen(false)} className="my-2 md:my-0" key={i}>
+    <div
+      onClick={() => isMobile && setMenuOpen(false)}
+      className="my-2 md:my-0"
+      key={i}
+    >
       <Link
         key={i}
         to={element.url}
