@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { useWindowSize } from "@uidotdev/usehooks";
+import { useDetailsContext } from "../../../context/useDetailsContext";
 
 const MenuOptions = ({ options, location_path, setMenuOpen }) => {
+  const { setSelectedProduct } = useDetailsContext();
   const size = useWindowSize();
   const isMobile = size.width < 768;
   return options.map((element, i) => (
     <div
       onClick={() => {
         isMobile && setMenuOpen(false);
+        setSelectedProduct({});
       }}
       className="my-2 md:my-0"
       key={i}

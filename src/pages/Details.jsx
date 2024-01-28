@@ -131,7 +131,6 @@ const Details = () => {
       if (drawerClosed && location_path === "producto") {
         if (allSelected) {
           navigate(`/nuestros-productos/categoria/todos`);
-          setDrawerClosed(true);
         } else {
           navigate(
             `/nuestros-productos/categoria/${selectedCategory.category_ID}&${selectedCategory.category_name}`
@@ -148,7 +147,6 @@ const Details = () => {
         setCategoryData([]);
         setSelectedCategory([]);
         setFilteredWorks(works.data);
-        setDrawerClosed(true);
         return;
       }
       handleCategoryChange();
@@ -179,7 +177,7 @@ const Details = () => {
         initial={{ opacity: 0.5, x: 0 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -100 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.7 }}
       >
         <main className={`mt-16 md:mt-24 w-full h-auto md:min-h-[80vh]`}>
           <Subtitle text={"nuestra vidriera virtual"} />
