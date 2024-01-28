@@ -6,7 +6,9 @@ const MenuOptions = ({ options, location_path, setMenuOpen }) => {
   const isMobile = size.width < 768;
   return options.map((element, i) => (
     <div
-      onClick={() => isMobile && setMenuOpen(false)}
+      onClick={() => {
+        isMobile && setMenuOpen(false);
+      }}
       className="my-2 md:my-0"
       key={i}
     >

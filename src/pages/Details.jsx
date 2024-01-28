@@ -131,6 +131,7 @@ const Details = () => {
       if (drawerClosed && location_path === "producto") {
         if (allSelected) {
           navigate(`/nuestros-productos/categoria/todos`);
+          setDrawerClosed(true);
         } else {
           navigate(
             `/nuestros-productos/categoria/${selectedCategory.category_ID}&${selectedCategory.category_name}`
@@ -147,6 +148,7 @@ const Details = () => {
         setCategoryData([]);
         setSelectedCategory([]);
         setFilteredWorks(works.data);
+        setDrawerClosed(true);
         return;
       }
       handleCategoryChange();
