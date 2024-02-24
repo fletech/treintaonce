@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import Gallery from "../Gallery/Gallery";
 import ContactSection from "../Hero/ContactSection";
 import CtaButton from "./CtaButton";
+import { Drawer } from "vaul";
 
 const DrawerContent = ({ work }) => {
   const text = work.work_long_description;
@@ -38,13 +40,18 @@ const DrawerContent = ({ work }) => {
               <p className="font-light mr-10 text-blackish">
                 Tenés algo similar en mente?
               </p>
-              <CtaButton
-                url={`/contactanos/${work.work_title}`}
-                primary
-                work={work}
-              >
-                Contactanos
-              </CtaButton>
+              <Drawer.Close asChild>
+                <Link to={`/contactanos/${work.work_title}`} primary asChild>
+                  <CtaButton
+                    id={work.work_ID}
+                    primary={true}
+                    work={work}
+                    asChild
+                  >
+                    Contactanos
+                  </CtaButton>
+                </Link>
+              </Drawer.Close>
             </div>
           </div>
         </div>

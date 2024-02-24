@@ -24,9 +24,7 @@ const ProductGrid = () => {
 
   return (
     <section
-      className={` ${
-        isMobile && "no-scrollbar"
-      } md:grid grid-cols-2 md:gap-4 auto-rows-[1fr] carousel w-full h-auto  flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll md:pr-2`}
+      className={` ${isMobile} md:grid grid-cols-2 md:gap-4 auto-rows-[1fr] carousel w-full h-auto  flex justify-start overflow-x-scroll md:overflow-x-hidden overflow-y-scroll md:pr-2`}
     >
       {/* //PRODUCTO CARD fallback */}
       {filteredWorks.length == 0 && selectedCategory?.category_ID && (
@@ -73,6 +71,7 @@ const ProductGrid = () => {
             animate={{ y: 0 }}
             exit={{ y: 0 }}
             transition={{ duration: (i + 3) / 10 }}
+            key={work.work_ID}
           >
             <div
               className={`item ${
