@@ -18,7 +18,7 @@ const CustomDrawer = ({ work, elementRef }) => {
     setIsProductShown,
     setDrawerClosed,
   } = useDetailsContext();
-  const [contactClicked, setContactCliked] = useState(false);
+
   const [isIOS, setIsIOS] = useState(false);
   const navigate = useNavigate();
   const size = useWindowSize();
@@ -28,15 +28,10 @@ const CustomDrawer = ({ work, elementRef }) => {
   const list = text.split("/").length != 0 ? text.split("/") : [text];
 
   const contactHandler = () => {
-    setContactCliked(true);
     navigate(`/contactanos/${work.work_title}`);
     if (isIOS) window.location.reload();
   };
-  useEffect(() => {
-    if (!isProductShown && contactClicked) {
-      setContactCliked(false);
-    }
-  }, [isProductShown, contactClicked]);
+
   useEffect(() => {
     let os = null;
     let clientStrings = { s: "iOS", r: /(iPhone|iPad|iPod)/ };
@@ -48,7 +43,6 @@ const CustomDrawer = ({ work, elementRef }) => {
   return (
     work && (
       <Drawer.Root
-        // defaultOpen={isProductShown && selectedProduct.work_ID == work.work_ID}
         open={isProductShown && selectedProduct.work_ID == work.work_ID}
         onOpenChange={(value) => {
           setIsProductShown(value);
@@ -131,37 +125,14 @@ const CustomDrawer = ({ work, elementRef }) => {
                           <p className="font-light mr-10 text-blackish">
                             Tenés algo similar en mente?
                           </p>
-
-                          <Drawer.Close
-                            onClick={contactHandler}
-                            // onClick={() =>
-                            //   navigate(`/contactanos/${work.work_title}`)
-                            // }
-                          >
-                            {/* <Link
-                              to={`/contactanos/${work.work_title}`}
-                              onClick={contactHandler}
-                            > */}
+                          <Drawer.Close onClick={contactHandler}>
                             <CtaButton asChild primary work={work}>
                               Contactanos
                             </CtaButton>
-                            {/* </Link> */}
                           </Drawer.Close>
                         </div>
                       </div>
                     </div>
-                    {/* <div className="bg-gray-100 p-8 rounded-md mx-2">
-          <p className="font-semibold mr-10 text-blackish">
-            Tenés algo similar en mente?
-          </p>
-          <CtaButton
-            url={`/contactanos/${work.work_title}`}
-            primary
-            work={work}
-          >
-            Contactanos
-          </CtaButton>
-        </div> */}
                   </div>
                 </div>
               </div>

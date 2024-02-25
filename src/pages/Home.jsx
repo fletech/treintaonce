@@ -19,6 +19,7 @@ const Home = () => {
     setIsProductShown,
     setFilteredWorks,
     setAllSelected,
+    setDrawerClosed,
     setSelectedProduct,
     setSelectedCategory,
   } = useDetailsContext();
@@ -33,9 +34,10 @@ const Home = () => {
   useEffect(() => {
     if (location_path == "/") {
       setIsProductShown(false);
+      setDrawerClosed(false);
       setFilteredWorks([]);
       setAllSelected(false);
-      setSelectedProduct([]);
+      setSelectedProduct({});
       setSelectedCategory([]);
     }
   }, [location_path]);

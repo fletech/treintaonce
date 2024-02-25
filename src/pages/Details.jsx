@@ -130,6 +130,7 @@ const Details = () => {
 
       if (drawerClosed && location_path === "producto") {
         if (allSelected) {
+          console.log();
           navigate(`/nuestros-productos/categoria/todos`);
         } else {
           navigate(
