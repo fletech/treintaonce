@@ -33,7 +33,7 @@ const MeetOurTeam = () => {
         <p className="font-light text-xl text-blackish tracking-widest ">
           {description}
         </p>
-        <div className="md:grid md:grid-cols-5 gap-6 mt-8 flex flex-col">
+        <div className="md:grid md:grid-cols-4 gap-6 mt-8 flex flex-col">
           {members.map((member) => (
             <MemberCard
               key={member.name}
