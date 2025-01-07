@@ -17,6 +17,7 @@ import {
 import { Subtitle } from "../components/Commons/Commons";
 import { DesktopAside, MobileAside } from "../components/Details/Aside";
 import ProductGrid from "../components/Details/ProductGrid";
+import Spinner from "../components/Commons/Spinner";
 
 const Details = () => {
   const size = useWindowSize();
@@ -57,6 +58,9 @@ const Details = () => {
     cacheTime: 300000,
     staleTime: 0,
   });
+
+  console.log("works");
+  console.log(works);
 
   const relationWorkCategory = useQuery({
     queryKey: ["works-categories"],
@@ -126,6 +130,7 @@ const Details = () => {
       relationWorkCategory.isSuccess &&
       customers.isSuccess
     ) {
+      console.log(works);
       setCustomers(customers.data);
 
       if (drawerClosed && location_path === "producto") {
@@ -161,6 +166,14 @@ const Details = () => {
     param_id,
     location_path,
   ]);
+
+  if (works.isLoading) {
+    return (
+      <div className="m-auto w-auto h-auto transform translate-x-100 translate-y-200">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     works.data &&
